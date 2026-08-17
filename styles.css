@@ -13,8 +13,8 @@
     --neon-red: #ff0033;
 
     --bg-dark: #050811;
-    --bg-panel: transparent;
-    --bg-panel-border: rgba(0, 243, 255, 0.3);
+    --bg-panel: rgba(10, 18, 35, 0.65);
+    --bg-panel-border: rgba(0, 243, 255, 0.5);
 
     --glow-cyan: 0 0 10px rgba(0, 243, 255, 0.7), 0 0 20px rgba(0, 243, 255, 0.4);
     --glow-magenta: 0 0 10px rgba(ff, 0, 85, 0.7), 0 0 20px rgba(ff, 0, 85, 0.4);
@@ -120,8 +120,8 @@ body.preview-bg {
     background: var(--bg-panel);
     border: 1px solid var(--bg-panel-border);
     border-radius: 4px;
-    padding: 5px 10px;
-    box-shadow: inset 0 0 10px rgba(0, 243, 255, 0.1);
+    padding: 6px 12px;
+    box-shadow: 0 0 12px rgba(0, 243, 255, 0.2), inset 0 0 12px rgba(0, 243, 255, 0.1);
     position: relative;
     clip-path: polygon(
         0 0,
@@ -178,16 +178,27 @@ body.preview-bg {
 
 .info-text .label {
     font-size: 0.65rem;
-    color: #88a0c0;
+    font-weight: 700;
+    color: var(--neon-cyan);
     letter-spacing: 1px;
+    text-shadow: 1px 1px 2px #000, 0 0 5px var(--neon-cyan);
 }
 
 .info-text .value {
     font-size: 0.95rem;
-    font-weight: 700;
+    font-weight: 800;
     color: #ffffff;
-    text-shadow: 0 0 5px rgba(255,255,255,0.5);
+    text-shadow: 1px 1px 3px #000, 0 0 8px rgba(255,255,255,0.8);
 }
+
+.label-lime { color: var(--neon-lime) !important; text-shadow: 1px 1px 2px #000, 0 0 6px var(--neon-lime) !important; }
+.value-lime { color: #00ffaa !important; text-shadow: 1px 1px 3px #000, 0 0 8px var(--neon-lime) !important; }
+
+.label-cyan { color: var(--neon-cyan) !important; text-shadow: 1px 1px 2px #000, 0 0 6px var(--neon-cyan) !important; }
+.value-cyan { color: #00f3ff !important; text-shadow: 1px 1px 3px #000, 0 0 8px var(--neon-cyan) !important; }
+
+.label-magenta { color: var(--neon-magenta) !important; text-shadow: 1px 1px 2px #000, 0 0 6px var(--neon-magenta) !important; }
+.value-magenta { color: #ff3388 !important; text-shadow: 1px 1px 3px #000, 0 0 8px var(--neon-magenta) !important; }
 
 /* COMPASS HUD */
 .compass-hud {
@@ -475,19 +486,29 @@ body.preview-bg {
     display: flex;
     justify-content: space-between;
     font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 600;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px #000;
 }
 
 .stat-label {
     display: flex;
     align-items: center;
     gap: 6px;
-    color: rgba(255, 255, 255, 0.85);
+    font-weight: 700;
+    color: #ffffff;
 }
 
+.health-theme .stat-label { color: var(--neon-magenta); text-shadow: 1px 1px 2px #000, 0 0 6px var(--neon-magenta); }
+.armor-theme .stat-label { color: var(--neon-cyan); text-shadow: 1px 1px 2px #000, 0 0 6px var(--neon-cyan); }
+.food-theme .stat-label { color: var(--neon-amber); text-shadow: 1px 1px 2px #000, 0 0 6px var(--neon-amber); }
+.drink-theme .stat-label { color: #00bfff; text-shadow: 1px 1px 2px #000, 0 0 6px #00bfff; }
+.stamina-theme .stat-label { color: var(--neon-lime); text-shadow: 1px 1px 2px #000, 0 0 6px var(--neon-lime); }
+.stress-theme .stat-label { color: var(--neon-purple); text-shadow: 1px 1px 2px #000, 0 0 6px var(--neon-purple); }
+
 .stat-val {
-    font-weight: bold;
+    font-weight: 800;
+    text-shadow: 1px 1px 2px #000;
 }
 
 .stat-track {
@@ -623,20 +644,40 @@ body.preview-bg {
 
 .speed-number {
     font-family: var(--font-heading);
-    font-size: 2.2rem;
+    font-size: 2.4rem;
     font-weight: 900;
     color: #ffffff;
     line-height: 1;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    text-shadow: 1px 1px 3px #000, 0 0 12px var(--neon-cyan);
 }
 
 .speed-unit {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: bold;
+    font-size: 0.75rem;
+    font-weight: 800;
     color: var(--neon-cyan);
     letter-spacing: 1.5px;
+    text-shadow: 1px 1px 2px #000, 0 0 8px var(--neon-cyan);
 }
+
+.sub-label {
+    width: 65px;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px #000;
+}
+
+.fuel-box .sub-label { color: var(--neon-amber); text-shadow: 1px 1px 2px #000, 0 0 5px var(--neon-amber); }
+.rpm-box .sub-label { color: var(--neon-magenta); text-shadow: 1px 1px 2px #000, 0 0 5px var(--neon-magenta); }
+
+.sub-val {
+    width: 50px;
+    text-align: right;
+    font-weight: 800;
+    text-shadow: 1px 1px 2px #000;
+}
+.fuel-box .sub-val { color: var(--neon-amber); text-shadow: 1px 1px 2px #000, 0 0 5px var(--neon-amber); }
+.rpm-box .sub-val { color: var(--neon-magenta); text-shadow: 1px 1px 2px #000, 0 0 5px var(--neon-magenta); }
 
 .speedo-sub-stats {
     width: 100%;

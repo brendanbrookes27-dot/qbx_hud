@@ -16,11 +16,17 @@ local function GetQBXPlayerData()
 end
 
 CreateThread(function()
+    -- Enable FiveM Native Radar/Minimap
+    DisplayRadar(true)
+    SetRadarBigmapEnabled(false, false)
+
     while true do
         Wait(200)
         local playerPed = PlayerPedId()
 
         if playerPed and playerPed ~= 0 then
+            -- Force display radar when ped is alive or in vehicle
+            DisplayRadar(isHudVisible)
             -- Health & Armor
             local health = GetEntityHealth(playerPed) - 100
             local maxHealth = GetEntityMaxHealth(playerPed) - 100
