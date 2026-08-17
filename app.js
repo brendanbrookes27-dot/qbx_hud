@@ -117,6 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btnToggleScanlines: document.getElementById('btn-toggle-scanlines'),
         btnToggleRadar: document.getElementById('btn-toggle-radar'),
         btnToggleWeapon: document.getElementById('btn-toggle-weapon'),
+        btnToggleBg: document.getElementById('btn-toggle-bg'),
         btnGlitchFx: document.getElementById('btn-glitch-fx'),
 
         // Presets
@@ -333,6 +334,15 @@ document.addEventListener('DOMContentLoaded', () => {
             el.btnToggleWeapon.innerHTML = `<i class="fa-solid fa-gun"></i> Weapon HUD: ${hudState.weaponVisible ? 'ON' : 'OFF'}`;
             renderHUD();
         });
+
+        if (el.btnToggleBg) {
+            el.btnToggleBg.addEventListener('click', () => {
+                const hasBg = document.body.classList.toggle('preview-bg');
+                el.btnToggleBg.classList.toggle('active', hasBg);
+                el.btnToggleBg.innerHTML = `<i class="fa-solid fa-image"></i> Preview BG: ${hasBg ? 'ON' : 'OFF'}`;
+                playCyberBeep(650);
+            });
+        }
 
         // Trigger Glitch Effect
         el.btnGlitchFx.addEventListener('click', () => {
