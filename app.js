@@ -33,6 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // DOM Elements Cache
     const el = {
+        hudRoot: document.getElementById('hud-root'),
+
         // Vitals
         healthBar: document.getElementById('bar-health'),
         healthVal: document.getElementById('val-health'),
@@ -414,7 +416,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // FiveM / NUI Integration Window Event Listener
     window.addEventListener('message', (event) => {
         const item = event.data;
-        if (item && item.action === 'updateHUD') {
+        if (!item) return;
+
+        if (item.action === 'toggleHud') {
+            if (el.hudRoot) {
+                el.hudRoot.style.display = item.visible ? 'block' : 'none';
+            }
+            return;
+        }
+
+        if (item.action === 'updateHUD' || item.action === 'updateStatus') {
             if (item.health !== undefined) hudState.health = item.health;
             if (item.armor !== undefined) hudState.armor = item.armor;
             if (item.food !== undefined) hudState.food = item.food;
@@ -425,6 +436,16 @@ document.addEventListener('DOMContentLoaded', () => {
             if (item.fuel !== undefined) hudState.fuel = item.fuel;
             if (item.rpm !== undefined) hudState.rpm = item.rpm;
             if (item.inVehicle !== undefined) hudState.vehicleMode = item.inVehicle;
+
+            if (item.vehicle) {
+                if (item.vehicle.inVehicle !== undefined) hudState.vehicleMode = item.vehicle.inVehicle;
+                if (item.vehicle.speed !== undefined) hudState.speedKmh = item.vehicle.speed;
+                if (item.vehicle.fuel !== undefined) hudState.fuel = item.vehicle.fuel;
+                if (item.vehicle.rpm !== undefined) hudState.rpm = item.vehicle.rpm;
+                if (item.vehicle.seatbelt !== undefined) hudState.seatbelt = item.vehicle.seatbelt;
+                if (item.vehicle.engine !== undefined) hudState.engineWarn = !item.vehicle.engine;
+            }
+
             renderHUD();
         }
     });
