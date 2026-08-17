@@ -12,6 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
         stamina: 100,
         stress: 20,
 
+        cash: 5240,
+        bank: 148920,
+
         speedKmh: 142,
         maxSpeed: 320,
         fuel: 68,
@@ -24,9 +27,13 @@ document.addEventListener('DOMContentLoaded', () => {
         headlights: true,
         doorsLocked: false,
 
+        weaponArmed: false,
+        weaponName: 'M2038-TACTICAL SHOTGUN',
+        ammoClip: 8,
+        ammoReserve: 64,
+
         vehicleMode: true,
         radarVisible: true,
-        weaponVisible: true,
         scanlinesVisible: true,
         currentTheme: 'cyber'
     };
@@ -70,6 +77,15 @@ document.addEventListener('DOMContentLoaded', () => {
         indEngine: document.getElementById('ind-engine'),
         indLights: document.getElementById('ind-lights'),
         indLock: document.getElementById('ind-lock'),
+
+        // Cash & Bank Money
+        hudCash: document.getElementById('hud-cash'),
+        hudBank: document.getElementById('hud-bank'),
+
+        // Weapon
+        weaponName: document.getElementById('weapon-name'),
+        ammoCurrent: document.getElementById('ammo-current'),
+        ammoReserve: document.getElementById('ammo-reserve'),
 
         // Radar & Weapon & Scanlines
         radarBox: document.getElementById('radar-box'),
@@ -176,6 +192,22 @@ document.addEventListener('DOMContentLoaded', () => {
         el.stressBar.style.width = `${hudState.stress}%`;
         el.stressVal.textContent = `${hudState.stress}%`;
 
+        // Cash & Bank Money
+        if (el.hudCash) el.hudCash.textContent = `$ ${hudState.cash.toLocaleString()}`;
+        if (el.hudBank) el.hudBank.textContent = `$ ${hudState.bank.toLocaleString()}`;
+
+        // Dynamic Weapon HUD (Only visible when armed with a weapon)
+        if (el.weaponBox) {
+            if (hudState.weaponArmed) {
+                el.weaponBox.classList.add('weapon-active');
+            } else {
+                el.weaponBox.classList.remove('weapon-active');
+            }
+        }
+        if (el.weaponName) el.weaponName.textContent = hudState.weaponName;
+        if (el.ammoCurrent) el.ammoCurrent.textContent = String(hudState.ammoClip).padStart(2, '0');
+        if (el.ammoReserve) el.ammoReserve.textContent = String(hudState.ammoReserve).padStart(3, '0');
+
         // Vehicle Telemetry (KM/H)
         el.speedVal.textContent = Math.round(hudState.speedKmh);
 
@@ -218,7 +250,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Visibility Toggles
         el.radarBox.style.opacity = hudState.radarVisible ? '1' : '0';
-        el.weaponBox.style.opacity = hudState.weaponVisible ? '1' : '0';
         el.scanlines.style.display = hudState.scanlinesVisible ? 'block' : 'none';
 
         // Update Slider Values in Controller Dock
@@ -329,9 +360,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         el.btnToggleWeapon.addEventListener('click', () => {
-            hudState.weaponVisible = !hudState.weaponVisible;
-            el.btnToggleWeapon.classList.toggle('active', hudState.weaponVisible);
-            el.btnToggleWeapon.innerHTML = `<i class="fa-solid fa-gun"></i> Weapon HUD: ${hudState.weaponVisible ? 'ON' : 'OFF'}`;
+            hudState.weaponArmed = !hudState.weaponArmed;
+            el.btnToggleWeapon.classList.toggle('active', hudState.weaponArmed);
+            el.btnToggleWeapon.innerHTML = `<i class="fa-solid fa-gun"></i> Weapon Armed: ${hudState.weaponArmed ? 'YES' : 'NO'}`;
             renderHUD();
         });
 
@@ -442,6 +473,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (item.drink !== undefined) hudState.drink = item.drink;
             if (item.stamina !== undefined) hudState.stamina = item.stamina;
             if (item.stress !== undefined) hudState.stress = item.stress;
+
+            if (item.cash !== undefined) hudState.cash = item.cash;
+            if (item.bank !== undefined) hudState.bank = item.bank;
+
             if (item.speedKmh !== undefined) hudState.speedKmh = item.speedKmh;
             if (item.fuel !== undefined) hudState.fuel = item.fuel;
             if (item.rpm !== undefined) hudState.rpm = item.rpm;
@@ -454,6 +489,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (item.vehicle.rpm !== undefined) hudState.rpm = item.vehicle.rpm;
                 if (item.vehicle.seatbelt !== undefined) hudState.seatbelt = item.vehicle.seatbelt;
                 if (item.vehicle.engine !== undefined) hudState.engineWarn = !item.vehicle.engine;
+            }
+
+            if (item.weapon) {
+                if (item.weapon.armed !== undefined) hudState.weaponArmed = item.weapon.armed;
+                if (item.weapon.name !== undefined) hudState.weaponName = item.weapon.name;
+                if (item.weapon.clip !== undefined) hudState.ammoClip = item.weapon.clip;
+                if (item.weapon.reserve !== undefined) hudState.ammoReserve = item.weapon.reserve;
             }
 
             renderHUD();

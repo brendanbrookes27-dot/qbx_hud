@@ -81,35 +81,9 @@ body.preview-bg {
 .icon-lime { color: var(--neon-lime); text-shadow: var(--glow-lime); }
 .icon-amber { color: var(--neon-amber); text-shadow: var(--glow-amber); }
 
-/* Scanlines and Vignette Effect */
-.scanline-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 999;
-    background: linear-gradient(
-        to bottom,
-        rgba(255,255,255,0),
-        rgba(255,255,255,0) 50%,
-        rgba(0, 0, 0, 0.3) 50%,
-        rgba(0, 0, 0, 0.3)
-    );
-    background-size: 100% 4px;
-    opacity: 0.6;
-}
-
-.vignette-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 998;
-    box-shadow: inset 0 0 100px rgba(0,0,0,0.85);
+/* Scanlines and Vignette Overlay Removed completely for clean borderless game view */
+.scanline-overlay, .vignette-overlay {
+    display: none !important;
 }
 
 /* Glitch Animation Class */
@@ -126,14 +100,14 @@ body.preview-bg {
     100% { transform: translate(0); }
 }
 
-/* MAIN HUD CONTAINER */
+/* MAIN HUD CONTAINER - Scaled smaller for clean fit against screen edges */
 .hud-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    padding: 20px 30px;
+    padding: 12px 18px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -145,18 +119,18 @@ body.preview-bg {
 .hud-card {
     background: var(--bg-panel);
     border: 1px solid var(--bg-panel-border);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(8px);
     border-radius: 4px;
-    padding: 8px 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5), inset 0 0 15px rgba(0, 243, 255, 0.05);
+    padding: 5px 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4), inset 0 0 10px rgba(0, 243, 255, 0.05);
     position: relative;
     clip-path: polygon(
         0 0,
-        calc(100% - 12px) 0,
-        100% 12px,
+        calc(100% - 10px) 0,
+        100% 10px,
         100% 100%,
-        12px 100%,
-        0 calc(100% - 12px)
+        10px 100%,
+        0 calc(100% - 10px)
     );
 }
 
@@ -278,11 +252,11 @@ body.preview-bg {
     background: var(--bg-panel);
     border: 1px solid var(--bg-panel-border);
     border-radius: 50%;
-    width: 170px;
-    height: 170px;
-    padding: 10px;
+    width: 135px;
+    height: 135px;
+    padding: 8px;
     position: relative;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(0, 243, 255, 0.15);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7), inset 0 0 15px rgba(0, 243, 255, 0.15);
 }
 
 .radar-header {
@@ -380,15 +354,24 @@ body.preview-bg {
     font-weight: bold;
 }
 
-/* WEAPON CARD */
+/* WEAPON CARD - Scaled down & hidden by default when unarmed */
 .weapon-card {
     display: flex;
     align-items: center;
-    gap: 20px;
-    min-width: 260px;
+    gap: 14px;
+    min-width: 190px;
     justify-content: space-between;
     pointer-events: auto;
-    transition: opacity 0.3s ease;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+}
+
+.weapon-card.weapon-active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
 }
 
 .weapon-info {
@@ -398,40 +381,40 @@ body.preview-bg {
 
 .weapon-name {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.68rem;
     color: var(--neon-cyan);
-    letter-spacing: 1px;
-    margin-bottom: 2px;
+    letter-spacing: 0.8px;
+    margin-bottom: 1px;
 }
 
 .ammo-display {
     font-family: var(--font-heading);
     display: flex;
     align-items: baseline;
-    gap: 4px;
+    gap: 3px;
 }
 
 .ammo-current {
-    font-size: 2.2rem;
+    font-size: 1.7rem;
     font-weight: 800;
     color: #ffffff;
-    text-shadow: 0 0 10px #ffffff;
+    text-shadow: 0 0 8px #ffffff;
 }
 
 .ammo-divider {
-    font-size: 1.4rem;
+    font-size: 1.1rem;
     color: var(--neon-magenta);
 }
 
 .ammo-reserve {
-    font-size: 1.2rem;
+    font-size: 0.95rem;
     color: rgba(255, 255, 255, 0.6);
 }
 
 .weapon-icon i {
-    font-size: 2.2rem;
+    font-size: 1.6rem;
     color: var(--neon-magenta);
-    filter: drop-shadow(0 0 8px var(--neon-magenta));
+    filter: drop-shadow(0 0 6px var(--neon-magenta));
 }
 
 /* ==========================================================================
@@ -444,57 +427,57 @@ body.preview-bg {
     width: 100%;
 }
 
-/* VITALS SECTION */
+/* VITALS SECTION - Compact dimensions */
 .vitals-container {
     background: var(--bg-panel);
     border: 1px solid var(--bg-panel-border);
-    backdrop-filter: blur(10px);
-    padding: 16px 20px;
-    border-radius: 8px;
-    width: 360px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    padding: 10px 14px;
+    border-radius: 6px;
+    width: 270px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
     position: relative;
-    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
 }
 
 .vitals-header {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     font-family: var(--font-heading);
-    font-size: 0.85rem;
-    letter-spacing: 1.5px;
+    font-size: 0.72rem;
+    letter-spacing: 1px;
     color: #ffffff;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     border-bottom: 1px solid rgba(0, 243, 255, 0.2);
-    padding-bottom: 6px;
+    padding-bottom: 4px;
 }
 
 .vitals-sub {
     margin-left: auto;
     font-family: var(--font-mono);
-    font-size: 0.65rem;
+    font-size: 0.58rem;
     color: var(--neon-cyan);
 }
 
 .vitals-grid {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 6px;
 }
 
 /* STAT BAR ITEM */
 .stat-bar-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 2px;
 }
 
 .stat-meta {
     display: flex;
     justify-content: space-between;
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.68rem;
     font-weight: 600;
 }
 
@@ -511,7 +494,7 @@ body.preview-bg {
 
 .stat-track {
     width: 100%;
-    height: 8px;
+    height: 6px;
     background: rgba(0, 0, 0, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 2px;
@@ -561,14 +544,14 @@ body.preview-bg {
 .speedo-container {
     background: var(--bg-panel);
     border: 1px solid var(--bg-panel-border);
-    backdrop-filter: blur(10px);
-    padding: 16px 20px;
-    border-radius: 12px;
-    width: 320px;
+    backdrop-filter: blur(8px);
+    padding: 10px 14px;
+    border-radius: 8px;
+    width: 240px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
@@ -584,28 +567,28 @@ body.preview-bg {
     justify-content: space-between;
     align-items: center;
     font-family: var(--font-heading);
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     border-bottom: 1px solid rgba(0, 243, 255, 0.2);
-    padding-bottom: 6px;
-    margin-bottom: 10px;
+    padding-bottom: 4px;
+    margin-bottom: 6px;
 }
 
 .gear-badge {
     background: rgba(0, 243, 255, 0.15);
     border: 1px solid var(--neon-cyan);
     color: var(--neon-cyan);
-    padding: 2px 8px;
-    border-radius: 4px;
+    padding: 1px 6px;
+    border-radius: 3px;
     font-family: var(--font-mono);
     font-weight: bold;
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     box-shadow: var(--glow-cyan);
 }
 
 .speedo-main-gauge {
     position: relative;
-    width: 180px;
-    height: 180px;
+    width: 135px;
+    height: 135px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -643,19 +626,19 @@ body.preview-bg {
 
 .speed-number {
     font-family: var(--font-heading);
-    font-size: 3rem;
+    font-size: 2.2rem;
     font-weight: 900;
     color: #ffffff;
     line-height: 1;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
 }
 
 .speed-unit {
     font-family: var(--font-mono);
-    font-size: 0.85rem;
+    font-size: 0.72rem;
     font-weight: bold;
     color: var(--neon-cyan);
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
 }
 
 .speedo-sub-stats {
