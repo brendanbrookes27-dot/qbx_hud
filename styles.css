@@ -13,7 +13,7 @@
     --neon-red: #ff0033;
 
     --bg-dark: #050811;
-    --bg-panel: rgba(10, 16, 30, 0.75);
+    --bg-panel: transparent;
     --bg-panel-border: rgba(0, 243, 255, 0.3);
 
     --glow-cyan: 0 0 10px rgba(0, 243, 255, 0.7), 0 0 20px rgba(0, 243, 255, 0.4);
@@ -119,10 +119,9 @@ body.preview-bg {
 .hud-card {
     background: var(--bg-panel);
     border: 1px solid var(--bg-panel-border);
-    backdrop-filter: blur(8px);
     border-radius: 4px;
     padding: 5px 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.4), inset 0 0 10px rgba(0, 243, 255, 0.05);
+    box-shadow: inset 0 0 10px rgba(0, 243, 255, 0.1);
     position: relative;
     clip-path: polygon(
         0 0,
@@ -256,7 +255,7 @@ body.preview-bg {
     height: 135px;
     padding: 8px;
     position: relative;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7), inset 0 0 15px rgba(0, 243, 255, 0.15);
+    box-shadow: inset 0 0 15px rgba(0, 243, 255, 0.15);
 }
 
 .radar-header {
@@ -264,7 +263,7 @@ body.preview-bg {
     top: -22px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(10, 16, 30, 0.9);
+    background: rgba(5, 12, 25, 0.6);
     border: 1px solid var(--neon-cyan);
     padding: 2px 10px;
     border-radius: 10px;
@@ -285,7 +284,7 @@ body.preview-bg {
     border: 1px solid rgba(0, 243, 255, 0.4);
     position: relative;
     overflow: hidden;
-    background: radial-gradient(circle, rgba(0, 243, 255, 0.1) 0%, rgba(5, 10, 25, 0.9) 80%);
+    background: radial-gradient(circle, rgba(0, 243, 255, 0.1) 0%, rgba(0, 0, 0, 0.3) 80%);
 }
 
 .radar-grid {
@@ -431,11 +430,10 @@ body.preview-bg {
 .vitals-container {
     background: var(--bg-panel);
     border: 1px solid var(--bg-panel-border);
-    backdrop-filter: blur(8px);
     padding: 10px 14px;
     border-radius: 6px;
     width: 270px;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0 0 10px rgba(0, 243, 255, 0.05);
     position: relative;
     clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
 }
@@ -544,14 +542,13 @@ body.preview-bg {
 .speedo-container {
     background: var(--bg-panel);
     border: 1px solid var(--bg-panel-border);
-    backdrop-filter: blur(8px);
     padding: 10px 14px;
     border-radius: 8px;
     width: 240px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0 0 10px rgba(0, 243, 255, 0.05);
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
@@ -764,8 +761,7 @@ body.preview-bg {
     background: rgba(8, 12, 22, 0.95);
     border: 1px solid var(--neon-cyan);
     border-radius: 8px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.9), var(--glow-cyan);
-    backdrop-filter: blur(15px);
+    box-shadow: var(--glow-cyan);
     overflow-y: auto;
     padding: 16px;
     display: flex;
