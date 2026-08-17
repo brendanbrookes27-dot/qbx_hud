@@ -17,7 +17,7 @@
     --bg-panel-border: rgba(0, 243, 255, 0.5);
 
     --glow-cyan: 0 0 10px rgba(0, 243, 255, 0.7), 0 0 20px rgba(0, 243, 255, 0.4);
-    --glow-magenta: 0 0 10px rgba(ff, 0, 85, 0.7), 0 0 20px rgba(ff, 0, 85, 0.4);
+    --glow-magenta: 0 0 10px rgba(255, 0, 85, 0.7), 0 0 20px rgba(255, 0, 85, 0.4);
     --glow-lime: 0 0 10px rgba(0, 255, 102, 0.7), 0 0 20px rgba(0, 255, 102, 0.4);
     --glow-amber: 0 0 10px rgba(255, 170, 0, 0.7), 0 0 20px rgba(255, 170, 0, 0.4);
 
@@ -100,7 +100,7 @@ body.preview-bg {
     100% { transform: translate(0); }
 }
 
-/* MAIN HUD CONTAINER - Scaled smaller for clean fit against screen edges */
+/* MAIN HUD CONTAINER */
 .hud-container {
     position: absolute;
     top: 0;
@@ -113,6 +113,50 @@ body.preview-bg {
     justify-content: space-between;
     box-sizing: border-box;
     z-index: 10;
+    transition: opacity 0.2s ease;
+}
+
+/* DRAGGABLE HUD ELEMENTS IN EDIT MODE */
+.hud-draggable {
+    position: relative;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+body.edit-mode .hud-draggable {
+    cursor: move;
+    outline: 2px dashed var(--neon-cyan);
+    outline-offset: 4px;
+    box-shadow: 0 0 15px var(--neon-cyan) !important;
+    z-index: 50;
+}
+
+body.edit-mode .hud-draggable:hover {
+    outline-color: var(--neon-magenta);
+    box-shadow: 0 0 20px var(--neon-magenta) !important;
+}
+
+/* DRAG HANDLE BADGE */
+.drag-handle {
+    display: none;
+    position: absolute;
+    top: -24px;
+    left: 0;
+    background: var(--neon-cyan);
+    color: #000000;
+    font-family: var(--font-mono);
+    font-weight: bold;
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    border-radius: 4px 4px 0 0;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    box-shadow: 0 0 8px var(--neon-cyan);
+    pointer-events: none;
+    z-index: 60;
+}
+
+body.edit-mode .drag-handle {
+    display: block;
 }
 
 /* REUSABLE HUD CARD */
@@ -152,23 +196,24 @@ body.preview-bg {
     justify-content: space-between;
     align-items: flex-start;
     width: 100%;
-    padding-right: 180px; /* Space for fixed simulator toggle button */
+    padding-right: 190px; /* Prevent overlap with HUD Controller button */
+    gap: 10px;
 }
 
 .top-bar-left, .top-bar-right {
     display: flex;
-    gap: 15px;
+    gap: 12px;
 }
 
 .info-card {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     font-family: var(--font-mono);
 }
 
 .info-card i {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 }
 
 .info-text {
@@ -177,7 +222,7 @@ body.preview-bg {
 }
 
 .info-text .label {
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     font-weight: 700;
     color: var(--neon-cyan);
     letter-spacing: 1px;
@@ -185,7 +230,7 @@ body.preview-bg {
 }
 
 .info-text .value {
-    font-size: 0.95rem;
+    font-size: 0.88rem;
     font-weight: 800;
     color: #ffffff;
     text-shadow: 1px 1px 3px #000, 0 0 8px rgba(255,255,255,0.8);
@@ -205,7 +250,7 @@ body.preview-bg {
     background: var(--bg-panel);
     border: 1px solid var(--bg-panel-border);
     border-top: 2px solid var(--neon-cyan);
-    padding: 6px 20px;
+    padding: 6px 16px;
     border-radius: 0 0 10px 10px;
     text-align: center;
     box-shadow: var(--glow-cyan);
@@ -213,9 +258,9 @@ body.preview-bg {
 
 .compass-ticks {
     display: flex;
-    gap: 14px;
+    gap: 12px;
     font-family: var(--font-mono);
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: rgba(255,255,255,0.4);
     letter-spacing: 2px;
 }
@@ -237,7 +282,7 @@ body.preview-bg {
 
 .compass-deg {
     font-family: var(--font-heading);
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     color: #ffffff;
     letter-spacing: 1.5px;
 }
@@ -250,6 +295,7 @@ body.preview-bg {
     justify-content: space-between;
     align-items: center;
     pointer-events: none;
+    width: 100%;
 }
 
 /* TACTICAL RADAR */
@@ -378,10 +424,10 @@ body.preview-bg {
     pointer-events: none;
 }
 
-.weapon-card.weapon-active {
-    opacity: 1;
-    transform: translateX(0);
-    pointer-events: auto;
+.weapon-card.weapon-active, body.edit-mode .weapon-card {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+    pointer-events: auto !important;
 }
 
 .weapon-info {
@@ -579,6 +625,12 @@ body.preview-bg {
     pointer-events: none;
 }
 
+body.edit-mode .speedo-container {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
+}
+
 .speedo-header {
     width: 100%;
     display: flex;
@@ -695,11 +747,6 @@ body.preview-bg {
     font-size: 0.75rem;
 }
 
-.sub-label {
-    width: 65px;
-    color: rgba(255, 255, 255, 0.8);
-}
-
 .sub-track {
     flex-grow: 1;
     height: 6px;
@@ -716,12 +763,6 @@ body.preview-bg {
 
 .fuel-fill { background: var(--neon-amber); box-shadow: var(--glow-amber); }
 .rpm-fill { background: var(--neon-magenta); box-shadow: var(--glow-magenta); }
-
-.sub-val {
-    width: 45px;
-    text-align: right;
-    font-weight: bold;
-}
 
 .speedo-indicators {
     display: flex;
@@ -765,12 +806,96 @@ body.preview-bg {
 }
 
 /* ==========================================================================
+   SETTINGS & LAYOUT MODAL (/settings)
+   ========================================================================== */
+.settings-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 440px;
+    background: rgba(8, 14, 28, 0.96);
+    border: 2px solid var(--neon-cyan);
+    border-radius: 10px;
+    box-shadow: 0 0 25px rgba(0, 243, 255, 0.5), inset 0 0 20px rgba(0, 243, 255, 0.1);
+    z-index: 2000;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.settings-modal.hidden {
+    display: none !important;
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 243, 255, 0.3);
+    padding-bottom: 10px;
+}
+
+.settings-header h3 {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    letter-spacing: 1.5px;
+    color: #ffffff;
+}
+
+.settings-close-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.settings-close-btn:hover { color: var(--neon-magenta); }
+
+.settings-notice {
+    background: rgba(255, 170, 0, 0.15);
+    border: 1px solid var(--neon-amber);
+    color: #ffffff;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(255, 170, 0, 0.3);
+}
+
+.settings-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.settings-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.btn-save-exit {
+    flex-grow: 1;
+    font-size: 0.85rem !important;
+    padding: 10px !important;
+}
+
+/* ==========================================================================
    SIMULATOR / CONTROLLER DOCK
    ========================================================================== */
 .sim-dock {
     position: fixed;
-    top: 20px;
-    right: 20px;
+    top: 12px;
+    right: 18px;
     z-index: 1000;
 }
 
@@ -779,8 +904,8 @@ body.preview-bg {
     border: 1px solid var(--neon-cyan);
     color: var(--neon-cyan);
     font-family: var(--font-heading);
-    font-size: 0.8rem;
-    padding: 10px 16px;
+    font-size: 0.75rem;
+    padding: 6px 12px;
     border-radius: 6px;
     cursor: pointer;
     box-shadow: var(--glow-cyan);
@@ -795,7 +920,7 @@ body.preview-bg {
 
 .dock-panel {
     position: absolute;
-    top: 45px;
+    top: 40px;
     right: 0;
     width: 380px;
     max-height: 85vh;

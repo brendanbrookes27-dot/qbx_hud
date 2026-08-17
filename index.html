@@ -19,7 +19,8 @@
     <div id="hud-root" class="hud-container">
 
         <!-- TOP BAR: COMPASS, ADDRESS & SYSTEM INFO -->
-        <header class="hud-top-bar">
+        <header class="hud-top-bar hud-draggable" id="top-bar-box">
+            <div class="drag-handle"><i class="fa-solid fa-arrows-up-down-left-right"></i> DRAG TOP BAR</div>
             <div class="top-bar-left">
                 <div class="hud-card info-card">
                     <i class="fa-solid fa-location-dot icon-cyan"></i>
@@ -74,7 +75,8 @@
         <!-- MIDDLE HUD: RADAR & WEAPON STATUS -->
         <main class="hud-middle">
             <!-- RADAR / MINIMAP FRAME -->
-            <div class="radar-container" id="radar-box">
+            <div class="radar-container hud-draggable" id="radar-box">
+                <div class="drag-handle"><i class="fa-solid fa-arrows-up-down-left-right"></i> DRAG RADAR</div>
                 <div class="radar-hud-frame">
                     <div class="radar-header">
                         <span class="radar-title"><i class="fa-solid fa-crosshairs"></i> TACTICAL RADAR</span>
@@ -93,7 +95,8 @@
             </div>
 
             <!-- WEAPON & AMMO DISPLAY -->
-            <div class="hud-card weapon-card" id="weapon-box">
+            <div class="hud-card weapon-card hud-draggable" id="weapon-box">
+                <div class="drag-handle"><i class="fa-solid fa-arrows-up-down-left-right"></i> DRAG WEAPON</div>
                 <div class="weapon-info">
                     <div class="weapon-name" id="weapon-name">M2038-TACTICAL SHOTGUN</div>
                     <div class="ammo-display">
@@ -112,7 +115,8 @@
         <footer class="hud-bottom">
 
             <!-- LEFT VITALS: HEALTH, FOOD, DRINK, ARMOR, STAMINA, STRESS -->
-            <div class="vitals-container">
+            <div class="vitals-container hud-draggable" id="vitals-box">
+                <div class="drag-handle"><i class="fa-solid fa-arrows-up-down-left-right"></i> DRAG BIOMETRICS</div>
                 <div class="vitals-header">
                     <i class="fa-solid fa-heart-pulse icon-magenta"></i>
                     <span>BIOMETRIC STATUS</span>
@@ -195,7 +199,8 @@
             </div>
 
             <!-- RIGHT VEHICLE SPEEDOMETER (KM/H) -->
-            <div class="speedo-container" id="speedo-box">
+            <div class="speedo-container hud-draggable" id="speedo-box">
+                <div class="drag-handle"><i class="fa-solid fa-arrows-up-down-left-right"></i> DRAG TELEMETRY</div>
                 <div class="speedo-header">
                     <span><i class="fa-solid fa-car-side icon-cyan"></i> VEHICLE TELEMETRY</span>
                     <span class="gear-badge" id="val-gear">GEAR 4</span>
@@ -254,7 +259,67 @@
         </footer>
     </div>
 
-    <!-- INTERACTIVE CONTROL DOCK (SIMULATOR FOR TESTING & TOGGLING) -->
+    <!-- SETTINGS & LAYOUT CUSTOMIZER MODAL -->
+    <div class="settings-modal hidden" id="settings-modal">
+        <div class="settings-header">
+            <h3><i class="fa-solid fa-gear icon-cyan"></i> CYBER HUD SETTINGS & LAYOUT</h3>
+            <button class="settings-close-btn" id="settings-close-btn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <div class="settings-body">
+            <div class="settings-notice">
+                <i class="fa-solid fa-up-down-left-right icon-amber"></i> EDIT MODE ACTIVE: Click & drag any HUD widget around the screen!
+            </div>
+
+            <!-- TOGGLES FOR ELEMENTS -->
+            <div class="settings-group">
+                <label class="group-title">WIDGET VISIBILITY TOGGLES</label>
+                <div class="btn-grid">
+                    <button class="btn btn-toggle active" id="set-toggle-topbar"><i class="fa-solid fa-compass"></i> Top Bar</button>
+                    <button class="btn btn-toggle active" id="set-toggle-radar"><i class="fa-solid fa-crosshairs"></i> Radar</button>
+                    <button class="btn btn-toggle active" id="set-toggle-vitals"><i class="fa-solid fa-heart-pulse"></i> Biometrics</button>
+                    <button class="btn btn-toggle active" id="set-toggle-telemetry"><i class="fa-solid fa-car"></i> Vehicle Telemetry</button>
+                    <button class="btn btn-toggle active" id="set-toggle-weapon"><i class="fa-solid fa-gun"></i> Weapon HUD</button>
+                </div>
+            </div>
+
+            <!-- SCALE & OPACITY SLIDERS -->
+            <div class="settings-group">
+                <label class="group-title">HUD DISPLAY SCALING</label>
+
+                <div class="slider-row">
+                    <span><i class="fa-solid fa-expand icon-cyan"></i> Overall Scale</span>
+                    <input type="range" id="set-scale" min="70" max="130" value="100">
+                    <span class="range-val" id="set-val-scale">100%</span>
+                </div>
+
+                <div class="slider-row">
+                    <span><i class="fa-solid fa-eye icon-magenta"></i> HUD Opacity</span>
+                    <input type="range" id="set-opacity" min="30" max="100" value="100">
+                    <span class="range-val" id="set-val-opacity">100%</span>
+                </div>
+            </div>
+
+            <!-- THEME COLOR PALETTE -->
+            <div class="settings-group">
+                <label class="group-title">NEON ACCENT THEME</label>
+                <div class="color-palette-selector">
+                    <button class="palette-btn p-cyber active" data-theme="cyber" title="Cyber Cyan & Magenta"></button>
+                    <button class="palette-btn p-matrix" data-theme="matrix" title="Matrix Emerald"></button>
+                    <button class="palette-btn p-synthwave" data-theme="synthwave" title="Synthwave Sunset"></button>
+                    <button class="palette-btn p-gold" data-theme="gold" title="Hyper Gold"></button>
+                </div>
+            </div>
+
+            <!-- LAYOUT CONTROL BUTTONS -->
+            <div class="settings-actions">
+                <button class="btn btn-amber" id="btn-reset-layout"><i class="fa-solid fa-arrow-rotate-left"></i> Reset Positions</button>
+                <button class="btn btn-lime btn-save-exit" id="btn-save-exit"><i class="fa-solid fa-check"></i> Save & Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- INTERACTIVE CONTROL DOCK (SIMULATOR FOR TESTING & TOGGLING IN BROWSER) -->
     <div class="sim-dock" id="sim-dock">
         <button class="dock-toggle-btn" id="dock-toggle-btn" title="Toggle Simulation Control Dock">
             <i class="fa-solid fa-sliders"></i> HUD CONTROLLER
@@ -275,6 +340,7 @@
                         <button class="btn btn-amber" id="preset-hungry"><i class="fa-solid fa-bowl-food"></i> Starving / Dehydrated</button>
                         <button class="btn btn-lime" id="preset-full"><i class="fa-solid fa-battery-full"></i> Max Vitals</button>
                         <button class="btn btn-cyan" id="btn-drive-fast"><i class="fa-solid fa-gauge"></i> Full Speed KM/H</button>
+                        <button class="btn btn-magenta" id="btn-open-settings-sim"><i class="fa-solid fa-gear"></i> Open /settings</button>
                     </div>
                 </div>
 

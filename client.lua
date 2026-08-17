@@ -1,6 +1,7 @@
 -- QBX Cyberpunk Neon HUD Client Script
 
 local isHudVisible = true
+local isEditMode = false
 
 -- QBX Core helper
 local function GetQBXPlayerData()
@@ -124,6 +125,21 @@ CreateThread(function()
     end
 end)
 
+-- Open HUD Settings & Edit Mode via /settings
+RegisterCommand('settings', function()
+    isEditMode = true
+    SetNuiFocus(true, true)
+    SendNUIMessage({
+        action = 'openSettings'
+    })
+end, false)
+
+-- Alias /hudsettings for convenience
+RegisterCommand('hudsettings', function()
+    ExecuteCommand('settings')
+end, false)
+
+-- Toggle HUD Visibility
 RegisterCommand('togglehud', function()
     isHudVisible = not isHudVisible
     SendNUIMessage({
@@ -131,3 +147,10 @@ RegisterCommand('togglehud', function()
         visible = isHudVisible
     })
 end, false)
+
+-- NUI Callback: Close Settings
+RegisterNUICallback('closeSettings', function(data, cb)
+    isEditMode = false
+    SetNuiFocus(false, false)
+    cb('ok')
+end)
