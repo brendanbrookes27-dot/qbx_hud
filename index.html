@@ -3,106 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CYBERPUNK NEON HUD</title>
+    <title>Sleek Modern Glass HUD</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="cyber-body">
-    <!-- Scanline Overlay Effect -->
-    <div class="scanline-overlay" id="scanlines"></div>
-    <div class="vignette-overlay"></div>
 
     <!-- MAIN HUD CONTAINER -->
     <div id="hud-root" class="hud-container">
 
-        <!-- TOP BAR: COMPASS, ADDRESS & SYSTEM INFO -->
-        <header class="hud-top-bar hud-draggable" id="top-bar-box">
-            <div class="drag-handle"><i class="fa-solid fa-arrows-up-down-left-right"></i> DRAG TOP BAR</div>
-            <div class="top-bar-left">
-                <div class="hud-card info-card">
-                    <i class="fa-solid fa-location-dot icon-cyan"></i>
-                    <div class="info-text">
-                        <span class="label">LOCATION</span>
-                        <span class="value" id="location-text">NIGHT CITY // LITTLE CHINA - AVE 4</span>
-                    </div>
-                </div>
-                <div class="hud-card info-card">
-                    <i class="fa-solid fa-wifi icon-cyan"></i>
-                    <div class="info-text">
-                        <span class="label">VOICE / FREQ</span>
-                        <span class="value" id="voice-text">GRID-CH 104.5 [WHISPER]</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- COMPASS HUD -->
-            <div class="compass-hud">
-                <div class="compass-ticks">
-                    <span>NW</span><span>N</span><span>NE</span><span class="active-heading">E</span><span>SE</span><span>S</span><span>SW</span><span>W</span>
-                </div>
-                <div class="compass-pointer">▲</div>
-                <div class="compass-deg" id="compass-deg">094° EAST</div>
-            </div>
-
-            <div class="top-bar-right">
-                <div class="hud-card info-card">
-                    <i class="fa-solid fa-money-bill-wave icon-lime"></i>
-                    <div class="info-text">
-                        <span class="label label-lime">CASH</span>
-                        <span class="value value-lime" id="hud-cash">$ 5,240</span>
-                    </div>
-                </div>
-                <div class="hud-card info-card">
-                    <i class="fa-solid fa-building-columns icon-cyan"></i>
-                    <div class="info-text">
-                        <span class="label label-cyan">BANK</span>
-                        <span class="value value-cyan" id="hud-bank">$ 148,920</span>
-                    </div>
-                </div>
-                <div class="hud-card info-card">
-                    <i class="fa-solid fa-clock icon-magenta"></i>
-                    <div class="info-text">
-                        <span class="label label-magenta">TIME</span>
-                        <span class="value value-magenta" id="hud-clock">23:42</span>
-                    </div>
-                </div>
-            </div>
-        </header>
-
         <!-- MIDDLE HUD: RADAR & WEAPON STATUS -->
         <main class="hud-middle">
-            <!-- RADAR / MINIMAP FRAME -->
-            <div class="radar-container hud-draggable" id="radar-box">
-                <div class="drag-handle"><i class="fa-solid fa-arrows-up-down-left-right"></i> DRAG RADAR</div>
-                <div class="radar-hud-frame">
-                    <div class="radar-header">
-                        <span class="radar-title"><i class="fa-solid fa-crosshairs"></i> TACTICAL RADAR</span>
-                        <span class="radar-status">ONLINE</span>
-                    </div>
-                    <div class="radar-screen">
-                        <div class="radar-sweep"></div>
-                        <div class="radar-grid"></div>
-                        <div class="radar-center-blip"></div>
-                        <div class="radar-blip blip-1"></div>
-                        <div class="radar-blip blip-2"></div>
-                        <div class="radar-blip blip-enemy"></div>
-                        <div class="radar-north">N</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- WEAPON & AMMO DISPLAY -->
+            <!-- WEAPON & AMMO DISPLAY (Top Right or Middle Right) -->
             <div class="hud-card weapon-card hud-draggable" id="weapon-box">
                 <div class="drag-handle"><i class="fa-solid fa-arrows-up-down-left-right"></i> DRAG WEAPON</div>
                 <div class="weapon-info">
-                    <div class="weapon-name" id="weapon-name">M2038-TACTICAL SHOTGUN</div>
+                    <div class="weapon-name" id="weapon-name">COMBAT PISTOL</div>
                     <div class="ammo-display">
-                        <span class="ammo-current" id="ammo-current">08</span>
+                        <span class="ammo-current" id="ammo-current">12</span>
                         <span class="ammo-divider">/</span>
-                        <span class="ammo-reserve" id="ammo-reserve">064</span>
+                        <span class="ammo-reserve" id="ammo-reserve">120</span>
                     </div>
                 </div>
                 <div class="weapon-icon">
@@ -111,146 +34,120 @@
             </div>
         </main>
 
-        <!-- BOTTOM HUD: VITALS & VEHICLE SPEEDOMETER -->
+        <!-- BOTTOM HUD: RADAR & VITALS (LEFT), VEHICLE SPEEDOMETER (RIGHT) -->
         <footer class="hud-bottom">
 
-            <!-- LEFT VITALS: HEALTH, FOOD, DRINK, ARMOR, STAMINA, STRESS -->
-            <div class="vitals-container hud-draggable" id="vitals-box">
-                <div class="drag-handle"><i class="fa-solid fa-arrows-up-down-left-right"></i> DRAG BIOMETRICS</div>
-                <div class="vitals-header">
-                    <i class="fa-solid fa-heart-pulse icon-magenta"></i>
-                    <span>BIOMETRIC STATUS</span>
-                    <span class="vitals-sub">SYS // V2.0</span>
-                </div>
+            <!-- BOTTOM LEFT CLUSTER: RADAR & STATUS PILLS -->
+            <div class="bottom-left-cluster">
 
-                <div class="vitals-grid">
-                    <!-- HEALTH BAR -->
-                    <div class="stat-bar-wrapper health-theme" id="health-wrapper">
-                        <div class="stat-meta">
-                            <span class="stat-label"><i class="fa-solid fa-heart"></i> HEALTH</span>
-                            <span class="stat-val" id="val-health">85%</span>
-                        </div>
-                        <div class="stat-track">
-                            <div class="stat-fill health-fill" id="bar-health" style="width: 85%;"></div>
-                            <div class="stat-glow"></div>
-                        </div>
-                    </div>
-
-                    <!-- ARMOR / SHIELD BAR -->
-                    <div class="stat-bar-wrapper armor-theme">
-                        <div class="stat-meta">
-                            <span class="stat-label"><i class="fa-solid fa-shield-halved"></i> ARMOR</span>
-                            <span class="stat-val" id="val-armor">60%</span>
-                        </div>
-                        <div class="stat-track">
-                            <div class="stat-fill armor-fill" id="bar-armor" style="width: 60%;"></div>
-                            <div class="stat-glow"></div>
-                        </div>
-                    </div>
-
-                    <!-- HUNGER / FOOD BAR -->
-                    <div class="stat-bar-wrapper food-theme">
-                        <div class="stat-meta">
-                            <span class="stat-label"><i class="fa-solid fa-utensils"></i> FOOD</span>
-                            <span class="stat-val" id="val-food">75%</span>
-                        </div>
-                        <div class="stat-track">
-                            <div class="stat-fill food-fill" id="bar-food" style="width: 75%;"></div>
-                            <div class="stat-glow"></div>
-                        </div>
-                    </div>
-
-                    <!-- THIRST / DRINK BAR -->
-                    <div class="stat-bar-wrapper drink-theme">
-                        <div class="stat-meta">
-                            <span class="stat-label"><i class="fa-solid fa-glass-water"></i> DRINK</span>
-                            <span class="stat-val" id="val-drink">90%</span>
-                        </div>
-                        <div class="stat-track">
-                            <div class="stat-fill drink-fill" id="bar-drink" style="width: 90%;"></div>
-                            <div class="stat-glow"></div>
-                        </div>
-                    </div>
-
-                    <!-- STAMINA BAR -->
-                    <div class="stat-bar-wrapper stamina-theme">
-                        <div class="stat-meta">
-                            <span class="stat-label"><i class="fa-solid fa-bolt"></i> STAMINA</span>
-                            <span class="stat-val" id="val-stamina">100%</span>
-                        </div>
-                        <div class="stat-track">
-                            <div class="stat-fill stamina-fill" id="bar-stamina" style="width: 100%;"></div>
-                            <div class="stat-glow"></div>
-                        </div>
-                    </div>
-
-                    <!-- STRESS BAR -->
-                    <div class="stat-bar-wrapper stress-theme">
-                        <div class="stat-meta">
-                            <span class="stat-label"><i class="fa-solid fa-brain"></i> STRESS</span>
-                            <span class="stat-val" id="val-stress">20%</span>
-                        </div>
-                        <div class="stat-track">
-                            <div class="stat-fill stress-fill" id="bar-stress" style="width: 20%;"></div>
-                            <div class="stat-glow"></div>
+                <!-- RADAR / MINIMAP FRAME -->
+                <div class="radar-container hud-draggable" id="radar-box">
+                    <div class="drag-handle"><i class="fa-solid fa-arrows-up-down-left-right"></i> DRAG RADAR</div>
+                    <div class="radar-hud-frame">
+                        <div class="radar-screen">
+                            <div class="radar-sweep"></div>
+                            <div class="radar-grid"></div>
+                            <div class="radar-center-blip"></div>
+                            <div class="radar-blip blip-1"></div>
+                            <div class="radar-blip blip-2"></div>
+                            <div class="radar-north">N</div>
                         </div>
                     </div>
                 </div>
+
+                <!-- HORIZONTAL PILL STATUS BARS: HEALTH, ARMOR, HUNGER, THIRST, VOICE -->
+                <div class="vitals-container hud-draggable" id="vitals-box">
+                    <div class="drag-handle"><i class="fa-solid fa-arrows-up-down-left-right"></i> DRAG STATUS</div>
+
+                    <div class="vitals-pill-grid">
+                        <!-- HEALTH PILL (PINK/MAGENTA) -->
+                        <div class="pill-bar-wrapper health-pill" id="health-wrapper" title="Health">
+                            <div class="pill-icon"><i class="fa-solid fa-heart"></i></div>
+                            <div class="pill-track">
+                                <div class="pill-fill" id="bar-health" style="width: 85%;"></div>
+                            </div>
+                            <span class="pill-val" id="val-health">85</span>
+                        </div>
+
+                        <!-- ARMOR PILL (YELLOW) -->
+                        <div class="pill-bar-wrapper armor-pill" id="armor-wrapper" title="Armor">
+                            <div class="pill-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                            <div class="pill-track">
+                                <div class="pill-fill" id="bar-armor" style="width: 60%;"></div>
+                            </div>
+                            <span class="pill-val" id="val-armor">60</span>
+                        </div>
+
+                        <!-- HUNGER PILL (TEAL/CYAN) -->
+                        <div class="pill-bar-wrapper food-pill" id="food-wrapper" title="Hunger">
+                            <div class="pill-icon"><i class="fa-solid fa-utensils"></i></div>
+                            <div class="pill-track">
+                                <div class="pill-fill" id="bar-food" style="width: 75%;"></div>
+                            </div>
+                            <span class="pill-val" id="val-food">75</span>
+                        </div>
+
+                        <!-- THIRST PILL (CYAN) -->
+                        <div class="pill-bar-wrapper drink-pill" id="drink-wrapper" title="Thirst">
+                            <div class="pill-icon"><i class="fa-solid fa-droplet"></i></div>
+                            <div class="pill-track">
+                                <div class="pill-fill" id="bar-drink" style="width: 90%;"></div>
+                            </div>
+                            <span class="pill-val" id="val-drink">90</span>
+                        </div>
+
+                        <!-- VOICE / MIC PILL (PURPLE) -->
+                        <div class="pill-bar-wrapper voice-pill" id="voice-wrapper" title="Voice / Mic">
+                            <div class="pill-icon"><i class="fa-solid fa-microphone"></i></div>
+                            <div class="pill-track">
+                                <div class="pill-fill" id="bar-voice" style="width: 66%;"></div>
+                            </div>
+                            <span class="pill-val" id="val-voice">66%</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
-            <!-- RIGHT VEHICLE SPEEDOMETER (KM/H) -->
-            <div class="speedo-container hud-draggable" id="speedo-box">
+            <!-- RIGHT VEHICLE SPEEDOMETER (ANGLED DARK CARD) -->
+            <div class="speedo-container hud-draggable hidden-hud" id="speedo-box">
                 <div class="drag-handle"><i class="fa-solid fa-arrows-up-down-left-right"></i> DRAG TELEMETRY</div>
-                <div class="speedo-header">
-                    <span><i class="fa-solid fa-car-side icon-cyan"></i> VEHICLE TELEMETRY</span>
-                    <span class="gear-badge" id="val-gear">GEAR 4</span>
-                </div>
 
-                <div class="speedo-main-gauge">
-                    <!-- CIRCULAR NEON SPEED GAUGE -->
-                    <svg class="speedo-svg" viewBox="0 0 200 200">
-                        <circle class="speedo-bg-track" cx="100" cy="100" r="80"></circle>
-                        <circle class="speedo-active-arc" id="speedo-arc" cx="100" cy="100" r="80" stroke-dasharray="502" stroke-dashoffset="280"></circle>
-                    </svg>
-
-                    <div class="speedo-center-readout">
-                        <div class="speed-number" id="val-speed">142</div>
-                        <div class="speed-unit">KM/H</div>
-                    </div>
-                </div>
-
-                <div class="speedo-sub-stats">
-                    <!-- FUEL BAR -->
-                    <div class="fuel-box">
-                        <div class="sub-label"><i class="fa-solid fa-gas-pump icon-amber"></i> FUEL</div>
-                        <div class="sub-track">
-                            <div class="sub-fill fuel-fill" id="bar-fuel" style="width: 68%;"></div>
+                <div class="speedo-card-content">
+                    <div class="speedo-top-info">
+                        <div class="location-badge">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span id="location-text">GREAT OCEAN HWY</span>
                         </div>
-                        <span class="sub-val" id="val-fuel">68%</span>
+                        <div class="gear-badge" id="val-gear">D</div>
                     </div>
 
-                    <!-- RPM BAR -->
-                    <div class="rpm-box">
-                        <div class="sub-label"><i class="fa-solid fa-gauge-high icon-magenta"></i> RPM</div>
-                        <div class="sub-track">
-                            <div class="sub-fill rpm-fill" id="bar-rpm" style="width: 72%;"></div>
+                    <div class="speedo-main-readout">
+                        <span class="speed-number" id="val-speed">084</span>
+                        <div class="speed-unit-group">
+                            <span class="speed-unit">MPH</span>
                         </div>
-                        <span class="sub-val" id="val-rpm">6,200</span>
                     </div>
 
-                    <!-- STATUS INDICATORS -->
-                    <div class="speedo-indicators">
-                        <div class="ind-badge active" id="ind-seatbelt" title="Seatbelt">
-                            <i class="fa-solid fa-user-slash"></i> <span>BELT</span>
+                    <div class="speedo-bottom-stats">
+                        <div class="fuel-indicator">
+                            <i class="fa-solid fa-gas-pump icon-amber"></i>
+                            <div class="mini-track">
+                                <div class="mini-fill" id="bar-fuel" style="width: 68%;"></div>
+                            </div>
+                            <span class="mini-val" id="val-fuel">68%</span>
                         </div>
-                        <div class="ind-badge" id="ind-engine" title="Engine Warning">
-                            <i class="fa-solid fa-triangle-exclamation"></i> <span>ENG</span>
-                        </div>
-                        <div class="ind-badge active" id="ind-lights" title="Headlights">
-                            <i class="fa-solid fa-lightbulb"></i> <span>BEAM</span>
-                        </div>
-                        <div class="ind-badge" id="ind-lock" title="Doors Locked">
-                            <i class="fa-solid fa-lock"></i> <span>LOCK</span>
+
+                        <div class="speedo-badges">
+                            <div class="ind-badge active" id="ind-seatbelt" title="Seatbelt">
+                                <i class="fa-solid fa-user-slash"></i>
+                            </div>
+                            <div class="ind-badge" id="ind-engine" title="Engine Status">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </div>
+                            <div class="ind-badge active" id="ind-lights" title="Headlights">
+                                <i class="fa-solid fa-lightbulb"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -262,7 +159,7 @@
     <!-- SETTINGS & LAYOUT CUSTOMIZER MODAL -->
     <div class="settings-modal hidden" id="settings-modal">
         <div class="settings-header">
-            <h3><i class="fa-solid fa-gear icon-cyan"></i> CYBER HUD SETTINGS & LAYOUT</h3>
+            <h3><i class="fa-solid fa-gear icon-cyan"></i> HUD SETTINGS & LAYOUT</h3>
             <button class="settings-close-btn" id="settings-close-btn"><i class="fa-solid fa-xmark"></i></button>
         </div>
 
@@ -275,9 +172,8 @@
             <div class="settings-group">
                 <label class="group-title">WIDGET VISIBILITY TOGGLES</label>
                 <div class="btn-grid">
-                    <button class="btn btn-toggle active" id="set-toggle-topbar"><i class="fa-solid fa-compass"></i> Top Bar</button>
                     <button class="btn btn-toggle active" id="set-toggle-radar"><i class="fa-solid fa-crosshairs"></i> Radar</button>
-                    <button class="btn btn-toggle active" id="set-toggle-vitals"><i class="fa-solid fa-heart-pulse"></i> Biometrics</button>
+                    <button class="btn btn-toggle active" id="set-toggle-vitals"><i class="fa-solid fa-heart-pulse"></i> Status Pills</button>
                     <button class="btn btn-toggle active" id="set-toggle-telemetry"><i class="fa-solid fa-car"></i> Vehicle Telemetry</button>
                     <button class="btn btn-toggle active" id="set-toggle-weapon"><i class="fa-solid fa-gun"></i> Weapon HUD</button>
                 </div>
@@ -300,17 +196,6 @@
                 </div>
             </div>
 
-            <!-- THEME COLOR PALETTE -->
-            <div class="settings-group">
-                <label class="group-title">NEON ACCENT THEME</label>
-                <div class="color-palette-selector">
-                    <button class="palette-btn p-cyber active" data-theme="cyber" title="Cyber Cyan & Magenta"></button>
-                    <button class="palette-btn p-matrix" data-theme="matrix" title="Matrix Emerald"></button>
-                    <button class="palette-btn p-synthwave" data-theme="synthwave" title="Synthwave Sunset"></button>
-                    <button class="palette-btn p-gold" data-theme="gold" title="Hyper Gold"></button>
-                </div>
-            </div>
-
             <!-- LAYOUT CONTROL BUTTONS -->
             <div class="settings-actions">
                 <button class="btn btn-amber" id="btn-reset-layout"><i class="fa-solid fa-arrow-rotate-left"></i> Reset Positions</button>
@@ -326,7 +211,7 @@
         </button>
         <div class="dock-panel hidden" id="dock-panel">
             <div class="dock-header">
-                <h3><i class="fa-solid fa-sliders icon-cyan"></i> CYBER HUD SIMULATOR & CONTROLLER</h3>
+                <h3><i class="fa-solid fa-sliders icon-cyan"></i> HUD CONTROLLER & SIMULATOR</h3>
                 <button class="dock-close-btn" id="dock-close-btn"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
@@ -336,10 +221,10 @@
                     <label class="group-title">QUICK PRESETS</label>
                     <div class="btn-grid">
                         <button class="btn btn-cyan" id="preset-normal"><i class="fa-solid fa-check"></i> Normal</button>
-                        <button class="btn btn-magenta" id="preset-damage"><i class="fa-solid fa-skull"></i> Low Health / Critical</button>
-                        <button class="btn btn-amber" id="preset-hungry"><i class="fa-solid fa-bowl-food"></i> Starving / Dehydrated</button>
+                        <button class="btn btn-magenta" id="preset-damage"><i class="fa-solid fa-skull"></i> Low Health</button>
+                        <button class="btn btn-amber" id="preset-hungry"><i class="fa-solid fa-bowl-food"></i> Starving</button>
                         <button class="btn btn-lime" id="preset-full"><i class="fa-solid fa-battery-full"></i> Max Vitals</button>
-                        <button class="btn btn-cyan" id="btn-drive-fast"><i class="fa-solid fa-gauge"></i> Full Speed KM/H</button>
+                        <button class="btn btn-cyan" id="btn-drive-fast"><i class="fa-solid fa-gauge"></i> In Vehicle (84 MPH)</button>
                         <button class="btn btn-magenta" id="btn-open-settings-sim"><i class="fa-solid fa-gear"></i> Open /settings</button>
                     </div>
                 </div>
@@ -355,44 +240,32 @@
                     </div>
 
                     <div class="slider-row">
-                        <span><i class="fa-solid fa-shield-halved icon-cyan"></i> Armor</span>
+                        <span><i class="fa-solid fa-shield-halved icon-amber"></i> Armor</span>
                         <input type="range" id="sim-armor" min="0" max="100" value="60">
                         <span class="range-val" id="sim-val-armor">60%</span>
                     </div>
 
                     <div class="slider-row">
-                        <span><i class="fa-solid fa-utensils icon-amber"></i> Food (Hunger)</span>
+                        <span><i class="fa-solid fa-utensils icon-cyan"></i> Food</span>
                         <input type="range" id="sim-food" min="0" max="100" value="75">
                         <span class="range-val" id="sim-val-food">75%</span>
                     </div>
 
                     <div class="slider-row">
-                        <span><i class="fa-solid fa-glass-water icon-cyan"></i> Drink (Thirst)</span>
+                        <span><i class="fa-solid fa-droplet icon-cyan"></i> Drink</span>
                         <input type="range" id="sim-drink" min="0" max="100" value="90">
                         <span class="range-val" id="sim-val-drink">90%</span>
-                    </div>
-
-                    <div class="slider-row">
-                        <span><i class="fa-solid fa-bolt icon-lime"></i> Stamina</span>
-                        <input type="range" id="sim-stamina" min="0" max="100" value="100">
-                        <span class="range-val" id="sim-val-stamina">100%</span>
-                    </div>
-
-                    <div class="slider-row">
-                        <span><i class="fa-solid fa-brain icon-magenta"></i> Stress</span>
-                        <input type="range" id="sim-stress" min="0" max="100" value="20">
-                        <span class="range-val" id="sim-val-stress">20%</span>
                     </div>
                 </div>
 
                 <!-- VEHICLE SLIDERS -->
                 <div class="dock-group">
-                    <label class="group-title">VEHICLE TELEMETRY (KM/H)</label>
+                    <label class="group-title">VEHICLE TELEMETRY</label>
 
                     <div class="slider-row">
-                        <span><i class="fa-solid fa-gauge-high icon-cyan"></i> Speed (KM/H)</span>
-                        <input type="range" id="sim-speed" min="0" max="320" value="142">
-                        <span class="range-val" id="sim-val-speed">142 KM/H</span>
+                        <span><i class="fa-solid fa-gauge-high icon-cyan"></i> Speed (MPH)</span>
+                        <input type="range" id="sim-speed" min="0" max="220" value="84">
+                        <span class="range-val" id="sim-val-speed">84 MPH</span>
                     </div>
 
                     <div class="slider-row">
@@ -401,40 +274,19 @@
                         <span class="range-val" id="sim-val-fuel">68%</span>
                     </div>
 
-                    <div class="slider-row">
-                        <span><i class="fa-solid fa-tachograph-digital icon-magenta"></i> RPM</span>
-                        <input type="range" id="sim-rpm" min="0" max="9000" value="6200">
-                        <span class="range-val" id="sim-val-rpm">6200</span>
-                    </div>
-
                     <div class="btn-grid">
-                        <button class="btn btn-toggle active" id="btn-toggle-vehicle"><i class="fa-solid fa-car"></i> Vehicle HUD: ON</button>
-                        <button class="btn btn-toggle active" id="btn-toggle-seatbelt"><i class="fa-solid fa-user-slash"></i> Seatbelt: OFF</button>
-                        <button class="btn btn-toggle" id="btn-toggle-engine"><i class="fa-solid fa-triangle-exclamation"></i> Engine Warn: OFF</button>
-                        <button class="btn btn-toggle active" id="btn-toggle-lights"><i class="fa-solid fa-lightbulb"></i> Headlights: ON</button>
+                        <button class="btn btn-toggle" id="btn-toggle-vehicle"><i class="fa-solid fa-car"></i> Vehicle HUD: OFF</button>
+                        <button class="btn btn-toggle active" id="btn-toggle-seatbelt"><i class="fa-solid fa-user-slash"></i> Seatbelt: ON</button>
                     </div>
                 </div>
 
                 <!-- DISPLAY TOGGLES & EFFECTS -->
                 <div class="dock-group">
-                    <label class="group-title">VISUAL EFFECTS & OPTIONS</label>
+                    <label class="group-title">VISUAL OPTIONS</label>
                     <div class="btn-grid">
-                        <button class="btn btn-toggle active" id="btn-toggle-scanlines"><i class="fa-solid fa-tv"></i> Scanlines: ON</button>
                         <button class="btn btn-toggle active" id="btn-toggle-radar"><i class="fa-solid fa-crosshairs"></i> Radar: ON</button>
                         <button class="btn btn-toggle active" id="btn-toggle-weapon"><i class="fa-solid fa-gun"></i> Weapon HUD: ON</button>
                         <button class="btn btn-toggle" id="btn-toggle-bg"><i class="fa-solid fa-image"></i> Preview BG: OFF</button>
-                        <button class="btn btn-magenta" id="btn-glitch-fx"><i class="fa-solid fa-wand-magic-sparkles"></i> Trigger Glitch FX</button>
-                    </div>
-                </div>
-
-                <!-- COLOR PALETTE CUSTOMIZER -->
-                <div class="dock-group">
-                    <label class="group-title">NEON ACCENT PALETTE</label>
-                    <div class="color-palette-selector">
-                        <button class="palette-btn p-cyber active" data-theme="cyber" title="Cyber Cyan & Magenta"></button>
-                        <button class="palette-btn p-matrix" data-theme="matrix" title="Matrix Emerald"></button>
-                        <button class="palette-btn p-synthwave" data-theme="synthwave" title="Synthwave Sunset"></button>
-                        <button class="palette-btn p-gold" data-theme="gold" title="Hyper Gold"></button>
                     </div>
                 </div>
             </div>

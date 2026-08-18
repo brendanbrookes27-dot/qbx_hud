@@ -1,4 +1,4 @@
--- QBX Cyberpunk Neon HUD Client Script
+-- QBX Sleek Glass HUD Client Script
 
 local isHudVisible = true
 local isEditMode = false
@@ -28,30 +28,31 @@ CreateThread(function()
         if playerPed and playerPed ~= 0 then
             -- Force display radar when ped is alive or in vehicle
             DisplayRadar(isHudVisible)
+
             -- Health & Armor
             local health = GetEntityHealth(playerPed) - 100
             local maxHealth = GetEntityMaxHealth(playerPed) - 100
             local healthPercent = math.max(0, math.min(100, math.floor((health / math.max(1, maxHealth)) * 100)))
             local armorPercent = math.max(0, math.min(100, GetPedArmour(playerPed)))
-            local staminaPercent = math.max(0, math.min(100, math.floor(100 - GetPlayerStamina(PlayerId()))))
 
-            -- QBX Player Data (Cash, Bank, Hunger, Thirst, Stress)
+            -- QBX Player Data (Hunger, Thirst)
             local pData = GetQBXPlayerData()
-            local cashVal = 0
-            local bankVal = 0
             local foodVal = 100
             local drinkVal = 100
-            local stressVal = 0
 
-            if pData then
-                if pData.money then
-                    cashVal = pData.money.cash or 0
-                    bankVal = pData.money.bank or 0
-                end
-                if pData.metadata then
-                    if pData.metadata.hunger ~= nil then foodVal = math.floor(pData.metadata.hunger) end
-                    if pData.metadata.thirst ~= nil then drinkVal = math.floor(pData.metadata.thirst) end
-                    if pData.metadata.stress ~= nil then stressVal = math.floor(pData.metadata.stress) end
+            if pData and pData.metadata then
+                if pData.metadata.hunger ~= nil then foodVal = math.floor(pData.metadata.hunger) end
+                if pData.metadata.thirst ~= nil then drinkVal = math.floor(pData.metadata.thirst) end
+            end
+
+            -- Voice Proximity Detection (PMA-Voice or Mumble)
+            local voiceVal = 66
+            if LocalPlayer and LocalPlayer.state then
+                if LocalPlayer.state.proximity then
+                    local mode = LocalPlayer.state.proximity.mode or 'Normal'
+                    if mode == 'Whisper' then voiceVal = 33
+                    elseif mode == 'Normal' then voiceVal = 66
+                    elseif mode == 'Shout' then voiceVal = 100 end
                 end
             end
 
@@ -62,7 +63,6 @@ CreateThread(function()
             local clipAmmo = 0
             local reserveAmmo = 0
 
-            -- Check if holding a real weapon (not unarmed / fist / melee without ammo)
             if currentWeapon ~= `WEAPON_UNARMED` and currentWeapon ~= 0 then
                 isArmed = true
                 local ammoInPed = GetAmmoInPedWeapon(playerPed, currentWeapon)
@@ -79,27 +79,42 @@ CreateThread(function()
             if pedInVeh then
                 local vehicle = GetVehiclePedIsIn(playerPed, false)
                 local speedMs = GetEntitySpeed(vehicle)
-                local speedKmh = math.floor(speedMs * 3.6)
+                local speedMph = math.floor(speedMs * 2.236936) -- Speed in MPH
                 local fuel = GetVehicleFuelLevel(vehicle)
-                local rpm = GetVehicleCurrentRpm(vehicle)
-                local gear = GetVehicleCurrentGear(vehicle)
+                local gearNum = GetVehicleCurrentGear(vehicle)
+                local gearText = "D"
+                if gearNum == 0 then gearText = "R"
+                elseif gearNum == 1 then gearText = "1"
+                elseif gearNum == 2 then gearText = "2"
+                elseif gearNum == 3 then gearText = "3"
+                elseif gearNum == 4 then gearText = "4"
+                elseif gearNum >= 5 then gearText = "5" end
+
+                -- Location / Street Name
+                local coords = GetEntityCoords(vehicle)
+                local streetHash, crossingHash = GetStreetNameAtCoord(coords.x, coords.y, coords.z)
+                local streetName = GetStreetNameFromHashKey(streetHash)
+                if crossingHash ~= 0 then
+                    streetName = streetName .. " / " .. GetStreetNameFromHashKey(crossingHash)
+                end
+                if streetName == "" then streetName = "LOS SANTOS" end
 
                 vehData = {
                     inVehicle = true,
-                    speed = speedKmh,
+                    speed = speedMph,
                     fuel = math.floor(fuel or 100),
-                    rpm = math.floor((rpm or 0) * 8000 + 1000),
-                    gear = gear or 1,
+                    gear = gearText,
                     seatbelt = true,
-                    engine = GetIsVehicleEngineRunning(vehicle)
+                    engine = GetIsVehicleEngineRunning(vehicle),
+                    street = string.upper(streetName)
                 }
             else
                 vehData = {
                     inVehicle = false,
                     speed = 0,
                     fuel = 0,
-                    rpm = 0,
-                    gear = 0
+                    gear = "P",
+                    street = "LOS SANTOS"
                 }
             end
 
@@ -109,10 +124,7 @@ CreateThread(function()
                 armor = armorPercent,
                 food = foodVal,
                 drink = drinkVal,
-                stamina = staminaPercent,
-                stress = stressVal,
-                cash = cashVal,
-                bank = bankVal,
+                voice = voiceVal,
                 vehicle = vehData,
                 weapon = {
                     armed = isArmed,

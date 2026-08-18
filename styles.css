@@ -1,51 +1,26 @@
 /* ==========================================================================
-   CYBERPUNK NEON HUD - STYLESHEET
+   SLEEK MODERN GLASS HUD - STYLESHEET
+   Reference Design Matching Layout (Pill Vitals, Dark Angled Speedo)
    ========================================================================== */
 
 :root {
-    /* Color Palette - Cyberpunk Neon Theme */
-    --neon-cyan: #00f3ff;
-    --neon-magenta: #ff0055;
-    --neon-lime: #00ff66;
-    --neon-amber: #ffaa00;
-    --neon-purple: #9d00ff;
-    --neon-blue: #0066ff;
-    --neon-red: #ff0033;
+    /* Color Palette matching reference image */
+    --hud-pink: #ff2a85;       /* Health Pill Fill & Accents */
+    --hud-yellow: #ffb700;     /* Armor Pill Fill & Accents */
+    --hud-teal: #00d2c4;       /* Food / Hunger Pill Fill */
+    --hud-cyan: #00e1ff;       /* Drink / Thirst Pill Fill & Icons */
+    --hud-purple: #a855f7;     /* Voice / Mic Pill Fill */
+    --hud-lime: #10b981;       /* Active / Green Status */
+    --hud-red: #ef4444;        /* Critical / Danger Warnings */
 
-    --bg-dark: #050811;
-    --bg-panel: rgba(10, 18, 35, 0.65);
-    --bg-panel-border: rgba(0, 243, 255, 0.5);
-
-    --glow-cyan: 0 0 10px rgba(0, 243, 255, 0.7), 0 0 20px rgba(0, 243, 255, 0.4);
-    --glow-magenta: 0 0 10px rgba(255, 0, 85, 0.7), 0 0 20px rgba(255, 0, 85, 0.4);
-    --glow-lime: 0 0 10px rgba(0, 255, 102, 0.7), 0 0 20px rgba(0, 255, 102, 0.4);
-    --glow-amber: 0 0 10px rgba(255, 170, 0, 0.7), 0 0 20px rgba(255, 170, 0, 0.4);
+    --bg-dark-glass: rgba(12, 16, 24, 0.72);
+    --bg-dark-card: rgba(15, 20, 30, 0.88);
+    --bg-track: rgba(255, 255, 255, 0.12);
+    --border-glass: rgba(255, 255, 255, 0.12);
 
     --font-heading: 'Orbitron', sans-serif;
-    --font-body: 'Rajdhani', sans-serif;
-    --font-mono: 'Share Tech Mono', monospace;
-}
-
-/* Theme Variations */
-body.theme-matrix {
-    --neon-cyan: #00ff66;
-    --neon-magenta: #00ffaa;
-    --neon-lime: #aeff00;
-    --bg-panel-border: rgba(0, 255, 102, 0.35);
-}
-
-body.theme-synthwave {
-    --neon-cyan: #ff7700;
-    --neon-magenta: #ff00a0;
-    --neon-lime: #00f3ff;
-    --bg-panel-border: rgba(255, 0, 160, 0.35);
-}
-
-body.theme-gold {
-    --neon-cyan: #ffd700;
-    --neon-magenta: #ff4500;
-    --neon-lime: #00ffcc;
-    --bg-panel-border: rgba(255, 215, 0, 0.35);
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
 }
 
 /* Reset & Global */
@@ -67,38 +42,17 @@ html, body {
 }
 
 body.preview-bg {
-    background-color: var(--bg-dark) !important;
+    background-color: #0b0f19 !important;
     background-image:
-        radial-gradient(circle at 50% 50%, rgba(10, 20, 45, 0.8) 0%, rgba(5, 8, 17, 1) 100%),
-        linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px) !important;
-    background-size: 100% 100%, 30px 30px, 30px 30px !important;
+        radial-gradient(circle at 50% 50%, rgba(20, 30, 50, 0.8) 0%, rgba(8, 12, 20, 1) 100%),
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px) !important;
+    background-size: 100% 100%, 40px 40px, 40px 40px !important;
 }
 
-/* Icons */
-.icon-cyan { color: var(--neon-cyan); text-shadow: var(--glow-cyan); }
-.icon-magenta { color: var(--neon-magenta); text-shadow: var(--glow-magenta); }
-.icon-lime { color: var(--neon-lime); text-shadow: var(--glow-lime); }
-.icon-amber { color: var(--neon-amber); text-shadow: var(--glow-amber); }
-
-/* Scanlines and Vignette Overlay Removed completely for clean borderless game view */
-.scanline-overlay, .vignette-overlay {
-    display: none !important;
-}
-
-/* Glitch Animation Class */
-.glitch-active {
-    animation: glitchAnim 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
-}
-
-@keyframes glitchAnim {
-    0% { transform: translate(0); }
-    20% { transform: translate(-3px, 3px); filter: hue-rotate(90deg); }
-    40% { transform: translate(-3px, -3px); }
-    60% { transform: translate(3px, 3px); filter: hue-rotate(180deg); }
-    80% { transform: translate(3px, -3px); }
-    100% { transform: translate(0); }
-}
+.icon-cyan { color: var(--hud-cyan); }
+.icon-amber { color: var(--hud-yellow); }
+.icon-magenta { color: var(--hud-pink); }
 
 /* MAIN HUD CONTAINER */
 .hud-container {
@@ -107,7 +61,7 @@ body.preview-bg {
     left: 0;
     width: 100%;
     height: 100%;
-    padding: 12px 18px;
+    padding: 20px 24px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -119,20 +73,20 @@ body.preview-bg {
 /* DRAGGABLE HUD ELEMENTS IN EDIT MODE */
 .hud-draggable {
     position: relative;
-    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    transition: box-shadow 0.2s ease, outline 0.2s ease;
 }
 
 body.edit-mode .hud-draggable {
     cursor: move;
-    outline: 2px dashed var(--neon-cyan);
+    outline: 2px dashed var(--hud-cyan);
     outline-offset: 4px;
-    box-shadow: 0 0 15px var(--neon-cyan) !important;
+    box-shadow: 0 0 15px rgba(0, 225, 255, 0.4) !important;
     z-index: 50;
 }
 
 body.edit-mode .hud-draggable:hover {
-    outline-color: var(--neon-magenta);
-    box-shadow: 0 0 20px var(--neon-magenta) !important;
+    outline-color: var(--hud-pink);
+    box-shadow: 0 0 20px rgba(255, 42, 133, 0.5) !important;
 }
 
 /* DRAG HANDLE BADGE */
@@ -141,7 +95,7 @@ body.edit-mode .hud-draggable:hover {
     position: absolute;
     top: -24px;
     left: 0;
-    background: var(--neon-cyan);
+    background: var(--hud-cyan);
     color: #000000;
     font-family: var(--font-mono);
     font-weight: bold;
@@ -150,7 +104,6 @@ body.edit-mode .hud-draggable:hover {
     border-radius: 4px 4px 0 0;
     letter-spacing: 1px;
     white-space: nowrap;
-    box-shadow: 0 0 8px var(--neon-cyan);
     pointer-events: none;
     z-index: 60;
 }
@@ -159,189 +112,126 @@ body.edit-mode .drag-handle {
     display: block;
 }
 
-/* REUSABLE HUD CARD */
-.hud-card {
-    background: var(--bg-panel);
-    border: 1px solid var(--bg-panel-border);
-    border-radius: 4px;
-    padding: 6px 12px;
-    box-shadow: 0 0 12px rgba(0, 243, 255, 0.2), inset 0 0 12px rgba(0, 243, 255, 0.1);
-    position: relative;
-    clip-path: polygon(
-        0 0,
-        calc(100% - 10px) 0,
-        100% 10px,
-        100% 100%,
-        10px 100%,
-        0 calc(100% - 10px)
-    );
-}
-
-.hud-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background: var(--neon-cyan);
-    box-shadow: var(--glow-cyan);
-}
-
 /* ==========================================================================
-   TOP BAR SECTION
-   ========================================================================== */
-.hud-top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 100%;
-    padding-right: 190px; /* Prevent overlap with HUD Controller button */
-    gap: 10px;
-}
-
-.top-bar-left, .top-bar-right {
-    display: flex;
-    gap: 12px;
-}
-
-.info-card {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-family: var(--font-mono);
-}
-
-.info-card i {
-    font-size: 1.1rem;
-}
-
-.info-text {
-    display: flex;
-    flex-direction: column;
-}
-
-.info-text .label {
-    font-size: 0.62rem;
-    font-weight: 700;
-    color: var(--neon-cyan);
-    letter-spacing: 1px;
-    text-shadow: 1px 1px 2px #000, 0 0 5px var(--neon-cyan);
-}
-
-.info-text .value {
-    font-size: 0.88rem;
-    font-weight: 800;
-    color: #ffffff;
-    text-shadow: 1px 1px 3px #000, 0 0 8px rgba(255,255,255,0.8);
-}
-
-.label-lime { color: var(--neon-lime) !important; text-shadow: 1px 1px 2px #000, 0 0 6px var(--neon-lime) !important; }
-.value-lime { color: #00ffaa !important; text-shadow: 1px 1px 3px #000, 0 0 8px var(--neon-lime) !important; }
-
-.label-cyan { color: var(--neon-cyan) !important; text-shadow: 1px 1px 2px #000, 0 0 6px var(--neon-cyan) !important; }
-.value-cyan { color: #00f3ff !important; text-shadow: 1px 1px 3px #000, 0 0 8px var(--neon-cyan) !important; }
-
-.label-magenta { color: var(--neon-magenta) !important; text-shadow: 1px 1px 2px #000, 0 0 6px var(--neon-magenta) !important; }
-.value-magenta { color: #ff3388 !important; text-shadow: 1px 1px 3px #000, 0 0 8px var(--neon-magenta) !important; }
-
-/* COMPASS HUD */
-.compass-hud {
-    background: var(--bg-panel);
-    border: 1px solid var(--bg-panel-border);
-    border-top: 2px solid var(--neon-cyan);
-    padding: 6px 16px;
-    border-radius: 0 0 10px 10px;
-    text-align: center;
-    box-shadow: var(--glow-cyan);
-}
-
-.compass-ticks {
-    display: flex;
-    gap: 12px;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.4);
-    letter-spacing: 2px;
-}
-
-.compass-ticks span.active-heading {
-    color: var(--neon-cyan);
-    font-weight: bold;
-    text-shadow: var(--glow-cyan);
-    transform: scale(1.2);
-}
-
-.compass-pointer {
-    color: var(--neon-magenta);
-    font-size: 0.65rem;
-    line-height: 0.8;
-    margin-top: 2px;
-    text-shadow: var(--glow-magenta);
-}
-
-.compass-deg {
-    font-family: var(--font-heading);
-    font-size: 0.72rem;
-    color: #ffffff;
-    letter-spacing: 1.5px;
-}
-
-/* ==========================================================================
-   MIDDLE SECTION: RADAR & WEAPON STATUS
+   MIDDLE SECTION: WEAPON STATUS
    ========================================================================== */
 .hud-middle {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: flex-end;
+    align-items: flex-start;
     pointer-events: none;
     width: 100%;
 }
 
-/* TACTICAL RADAR */
-.radar-container {
+.weapon-card {
+    background: var(--bg-dark-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-glass);
+    border-radius: 12px;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     pointer-events: auto;
+    opacity: 0;
+    transform: translateY(-10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.radar-hud-frame {
-    background: var(--bg-panel);
-    border: 1px solid var(--bg-panel-border);
-    border-radius: 50%;
-    width: 135px;
-    height: 135px;
-    padding: 8px;
-    position: relative;
-    box-shadow: inset 0 0 15px rgba(0, 243, 255, 0.15);
+.weapon-card.weapon-active, body.edit-mode .weapon-card {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
 }
 
-.radar-header {
-    position: absolute;
-    top: -22px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(5, 12, 25, 0.6);
-    border: 1px solid var(--neon-cyan);
-    padding: 2px 10px;
-    border-radius: 10px;
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    white-space: nowrap;
+.weapon-info {
     display: flex;
-    gap: 8px;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
-.radar-title { color: var(--neon-cyan); }
-.radar-status { color: var(--neon-lime); text-shadow: var(--glow-lime); }
+.weapon-name {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.ammo-display {
+    font-family: var(--font-heading);
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.ammo-current {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.ammo-divider {
+    font-size: 1.1rem;
+    color: var(--hud-cyan);
+}
+
+.ammo-reserve {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.weapon-icon i {
+    font-size: 1.5rem;
+    color: var(--hud-cyan);
+}
+
+/* ==========================================================================
+   BOTTOM SECTION: RADAR & VITALS (LEFT) AND SPEEDOMETER (RIGHT)
+   ========================================================================== */
+.hud-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+}
+
+/* BOTTOM-LEFT CLUSTER (RADAR + HORIZONTAL PILLS) */
+.bottom-left-cluster {
+    display: flex;
+    align-items: flex-end;
+    gap: 14px;
+}
+
+/* RADAR / MINIMAP FRAME */
+.radar-container {
+    transition: opacity 0.3s ease;
+}
+
+.radar-hud-frame {
+    width: 130px;
+    height: 130px;
+    background: var(--bg-dark-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    border-radius: 20px;
+    padding: 6px;
+    position: relative;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+}
 
 .radar-screen {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
-    border: 1px solid rgba(0, 243, 255, 0.4);
+    border-radius: 14px;
     position: relative;
     overflow: hidden;
-    background: radial-gradient(circle, rgba(0, 243, 255, 0.1) 0%, rgba(0, 0, 0, 0.3) 80%);
+    background: radial-gradient(circle, rgba(0, 225, 255, 0.08) 0%, rgba(0, 0, 0, 0.4) 80%);
 }
 
 .radar-grid {
@@ -349,11 +239,10 @@ body.edit-mode .drag-handle {
     width: 100%;
     height: 100%;
     background-image:
-        linear-gradient(rgba(0, 243, 255, 0.2) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 243, 255, 0.2) 1px, transparent 1px);
-    background-size: 25px 25px;
+        linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 20px 20px;
     background-position: center;
-    border-radius: 50%;
 }
 
 .radar-sweep {
@@ -361,7 +250,7 @@ body.edit-mode .drag-handle {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: conic-gradient(from 0deg at 50% 50%, rgba(0, 243, 255, 0.4) 0deg, transparent 60deg, transparent 360deg);
+    background: conic-gradient(from 0deg at 50% 50%, rgba(0, 225, 255, 0.3) 0deg, transparent 50deg, transparent 360deg);
     animation: radarSpin 4s linear infinite;
 }
 
@@ -374,249 +263,123 @@ body.edit-mode .drag-handle {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 8px;
-    height: 8px;
-    background: var(--neon-cyan);
+    width: 7px;
+    height: 7px;
+    background: var(--hud-cyan);
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    box-shadow: var(--glow-cyan);
+    box-shadow: 0 0 8px var(--hud-cyan);
 }
 
 .radar-blip {
     position: absolute;
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
-    animation: blipPulse 1.5s infinite alternate;
+    background: #ffffff;
 }
 
-.blip-1 { top: 30%; left: 65%; background: var(--neon-lime); box-shadow: var(--glow-lime); }
-.blip-2 { top: 70%; left: 25%; background: var(--neon-lime); box-shadow: var(--glow-lime); }
-.blip-enemy { top: 40%; left: 30%; background: var(--neon-magenta); box-shadow: var(--glow-magenta); }
-
-@keyframes blipPulse {
-    0% { opacity: 0.3; transform: scale(0.8); }
-    100% { opacity: 1; transform: scale(1.3); }
-}
+.blip-1 { top: 35%; left: 60%; background: var(--hud-lime); box-shadow: 0 0 6px var(--hud-lime); }
+.blip-2 { top: 65%; left: 30%; background: var(--hud-lime); box-shadow: 0 0 6px var(--hud-lime); }
 
 .radar-north {
     position: absolute;
-    top: 4px;
+    top: 3px;
     left: 50%;
     transform: translateX(-50%);
     font-family: var(--font-mono);
     font-size: 0.65rem;
-    color: var(--neon-cyan);
-    font-weight: bold;
-}
-
-/* WEAPON CARD - Scaled down & hidden by default when unarmed */
-.weapon-card {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    min-width: 190px;
-    justify-content: space-between;
-    pointer-events: auto;
-    opacity: 0;
-    transform: translateX(20px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    pointer-events: none;
-}
-
-.weapon-card.weapon-active, body.edit-mode .weapon-card {
-    opacity: 1 !important;
-    transform: translateX(0) !important;
-    pointer-events: auto !important;
-}
-
-.weapon-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.weapon-name {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    color: var(--neon-cyan);
-    letter-spacing: 0.8px;
-    margin-bottom: 1px;
-}
-
-.ammo-display {
-    font-family: var(--font-heading);
-    display: flex;
-    align-items: baseline;
-    gap: 3px;
-}
-
-.ammo-current {
-    font-size: 1.7rem;
+    color: var(--hud-cyan);
     font-weight: 800;
-    color: #ffffff;
-    text-shadow: 0 0 8px #ffffff;
 }
 
-.ammo-divider {
-    font-size: 1.1rem;
-    color: var(--neon-magenta);
-}
-
-.ammo-reserve {
-    font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.6);
-}
-
-.weapon-icon i {
-    font-size: 1.6rem;
-    color: var(--neon-magenta);
-    filter: drop-shadow(0 0 6px var(--neon-magenta));
-}
-
-/* ==========================================================================
-   BOTTOM SECTION: VITALS & SPEEDOMETER
-   ========================================================================== */
-.hud-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    width: 100%;
-}
-
-/* VITALS SECTION - Compact dimensions */
+/* HORIZONTAL PILL STATUS BARS CONTAINER */
 .vitals-container {
-    background: var(--bg-panel);
-    border: 1px solid var(--bg-panel-border);
-    padding: 10px 14px;
-    border-radius: 6px;
-    width: 270px;
-    box-shadow: inset 0 0 10px rgba(0, 243, 255, 0.05);
-    position: relative;
-    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
-}
-
-.vitals-header {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-family: var(--font-heading);
-    font-size: 0.72rem;
-    letter-spacing: 1px;
-    color: #ffffff;
-    margin-bottom: 8px;
-    border-bottom: 1px solid rgba(0, 243, 255, 0.2);
-    padding-bottom: 4px;
-}
-
-.vitals-sub {
-    margin-left: auto;
-    font-family: var(--font-mono);
-    font-size: 0.58rem;
-    color: var(--neon-cyan);
-}
-
-.vitals-grid {
     display: flex;
     flex-direction: column;
-    gap: 6px;
 }
 
-/* STAT BAR ITEM */
-.stat-bar-wrapper {
+.vitals-pill-grid {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 7px;
 }
 
-.stat-meta {
-    display: flex;
-    justify-content: space-between;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-shadow: 1px 1px 2px #000;
-}
-
-.stat-label {
+/* INDIVIDUAL PILL BAR */
+.pill-bar-wrapper {
+    background: var(--bg-dark-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-glass);
+    border-radius: 30px;
+    padding: 4px 12px 4px 10px;
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-weight: 700;
-    color: #ffffff;
+    gap: 10px;
+    min-width: 175px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
-.health-theme .stat-label { color: var(--neon-magenta); text-shadow: 1px 1px 2px #000, 0 0 6px var(--neon-magenta); }
-.armor-theme .stat-label { color: var(--neon-cyan); text-shadow: 1px 1px 2px #000, 0 0 6px var(--neon-cyan); }
-.food-theme .stat-label { color: var(--neon-amber); text-shadow: 1px 1px 2px #000, 0 0 6px var(--neon-amber); }
-.drink-theme .stat-label { color: #00bfff; text-shadow: 1px 1px 2px #000, 0 0 6px #00bfff; }
-.stamina-theme .stat-label { color: var(--neon-lime); text-shadow: 1px 1px 2px #000, 0 0 6px var(--neon-lime); }
-.stress-theme .stat-label { color: var(--neon-purple); text-shadow: 1px 1px 2px #000, 0 0 6px var(--neon-purple); }
-
-.stat-val {
-    font-weight: 800;
-    text-shadow: 1px 1px 2px #000;
+.pill-icon {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.82rem;
 }
 
-.stat-track {
-    width: 100%;
+/* Pill specific colors */
+.health-pill .pill-icon i { color: var(--hud-pink); }
+.armor-pill .pill-icon i { color: var(--hud-yellow); }
+.food-pill .pill-icon i { color: var(--hud-teal); }
+.drink-pill .pill-icon i { color: var(--hud-cyan); }
+.voice-pill .pill-icon i { color: var(--hud-purple); }
+
+.pill-track {
+    flex-grow: 1;
     height: 6px;
-    background: rgba(0, 0, 0, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 2px;
-    position: relative;
+    background: var(--bg-track);
+    border-radius: 10px;
     overflow: hidden;
-}
-
-.stat-fill {
-    height: 100%;
-    width: 50%;
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
 }
 
-/* Stat Specific Colors */
-.health-theme .stat-fill { background: var(--neon-magenta); box-shadow: var(--glow-magenta); }
-.health-theme .stat-val { color: var(--neon-magenta); }
-
-.armor-theme .stat-fill { background: var(--neon-cyan); box-shadow: var(--glow-cyan); }
-.armor-theme .stat-val { color: var(--neon-cyan); }
-
-.food-theme .stat-fill { background: var(--neon-amber); box-shadow: var(--glow-amber); }
-.food-theme .stat-val { color: var(--neon-amber); }
-
-.drink-theme .stat-fill { background: #00bfff; box-shadow: 0 0 10px #00bfff; }
-.drink-theme .stat-val { color: #00bfff; }
-
-.stamina-theme .stat-fill { background: var(--neon-lime); box-shadow: var(--glow-lime); }
-.stamina-theme .stat-val { color: var(--neon-lime); }
-
-.stress-theme .stat-fill { background: var(--neon-purple); box-shadow: 0 0 10px var(--neon-purple); }
-.stress-theme .stat-val { color: var(--neon-purple); }
-
-/* Critical Health Pulse Animation */
-.health-critical .stat-track {
-    animation: criticalPulse 0.6s infinite alternate;
+.pill-fill {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@keyframes criticalPulse {
-    from { border-color: rgba(255, 0, 85, 0.4); box-shadow: 0 0 5px rgba(255, 0, 85, 0.2); }
-    to { border-color: var(--neon-magenta); box-shadow: 0 0 15px var(--neon-magenta); }
+.health-pill .pill-fill { background: var(--hud-pink); box-shadow: 0 0 8px var(--hud-pink); }
+.armor-pill .pill-fill { background: var(--hud-yellow); box-shadow: 0 0 8px var(--hud-yellow); }
+.food-pill .pill-fill { background: var(--hud-teal); box-shadow: 0 0 8px var(--hud-teal); }
+.drink-pill .pill-fill { background: var(--hud-cyan); box-shadow: 0 0 8px var(--hud-cyan); }
+.voice-pill .pill-fill { background: var(--hud-purple); box-shadow: 0 0 8px var(--hud-purple); }
+
+.pill-val {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.85);
+    min-width: 24px;
+    text-align: right;
 }
 
 /* ==========================================================================
-   VEHICLE SPEEDOMETER (KM/H)
+   RIGHT VEHICLE SPEEDOMETER (DARK ANGLED DASHBOARD CARD)
    ========================================================================== */
 .speedo-container {
-    background: var(--bg-panel);
-    border: 1px solid var(--bg-panel-border);
-    padding: 10px 14px;
-    border-radius: 8px;
-    width: 240px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: inset 0 0 10px rgba(0, 243, 255, 0.05);
+    background: var(--bg-dark-card);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 14px 20px;
+    min-width: 230px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
     transition: opacity 0.3s ease, transform 0.3s ease;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 12px 100%);
 }
 
 .speedo-container.hidden-hud {
@@ -631,178 +394,144 @@ body.edit-mode .speedo-container {
     pointer-events: auto !important;
 }
 
-.speedo-header {
-    width: 100%;
+.speedo-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.speedo-top-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: var(--font-heading);
-    font-size: 0.7rem;
-    border-bottom: 1px solid rgba(0, 243, 255, 0.2);
-    padding-bottom: 4px;
-    margin-bottom: 6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 6px;
+}
+
+.location-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.5px;
+}
+
+.location-badge i {
+    color: var(--hud-cyan);
 }
 
 .gear-badge {
-    background: rgba(0, 243, 255, 0.15);
-    border: 1px solid var(--neon-cyan);
-    color: var(--neon-cyan);
-    padding: 1px 6px;
-    border-radius: 3px;
     font-family: var(--font-mono);
-    font-weight: bold;
-    font-size: 0.65rem;
-    box-shadow: var(--glow-cyan);
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--hud-cyan);
+    background: rgba(0, 225, 255, 0.12);
+    border: 1px solid rgba(0, 225, 255, 0.3);
+    padding: 1px 8px;
+    border-radius: 6px;
 }
 
-.speedo-main-gauge {
-    position: relative;
-    width: 135px;
-    height: 135px;
+.speedo-main-readout {
     display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.speedo-svg {
-    width: 100%;
-    height: 100%;
-    transform: rotate(135deg);
-}
-
-.speedo-bg-track {
-    fill: none;
-    stroke: rgba(255, 255, 255, 0.1);
-    stroke-width: 12;
-    stroke-linecap: round;
-}
-
-.speedo-active-arc {
-    fill: none;
-    stroke: var(--neon-cyan);
-    stroke-width: 12;
-    stroke-linecap: round;
-    filter: drop-shadow(0 0 8px var(--neon-cyan));
-    transition: stroke-dashoffset 0.1s ease-out, stroke 0.3s ease;
-}
-
-.speedo-center-readout {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: baseline;
+    justify-content: flex-start;
+    gap: 8px;
+    margin: 4px 0;
 }
 
 .speed-number {
     font-family: var(--font-heading);
-    font-size: 2.4rem;
+    font-size: 2.8rem;
     font-weight: 900;
     color: #ffffff;
     line-height: 1;
-    text-shadow: 1px 1px 3px #000, 0 0 12px var(--neon-cyan);
+    letter-spacing: 1px;
+}
+
+.speed-unit-group {
+    display: flex;
+    flex-direction: column;
 }
 
 .speed-unit {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     font-weight: 800;
-    color: var(--neon-cyan);
+    color: rgba(255, 255, 255, 0.5);
     letter-spacing: 1.5px;
-    text-shadow: 1px 1px 2px #000, 0 0 8px var(--neon-cyan);
 }
 
-.sub-label {
-    width: 65px;
-    font-weight: 700;
-    color: #ffffff;
-    text-shadow: 1px 1px 2px #000;
-}
-
-.fuel-box .sub-label { color: var(--neon-amber); text-shadow: 1px 1px 2px #000, 0 0 5px var(--neon-amber); }
-.rpm-box .sub-label { color: var(--neon-magenta); text-shadow: 1px 1px 2px #000, 0 0 5px var(--neon-magenta); }
-
-.sub-val {
-    width: 50px;
-    text-align: right;
-    font-weight: 800;
-    text-shadow: 1px 1px 2px #000;
-}
-.fuel-box .sub-val { color: var(--neon-amber); text-shadow: 1px 1px 2px #000, 0 0 5px var(--neon-amber); }
-.rpm-box .sub-val { color: var(--neon-magenta); text-shadow: 1px 1px 2px #000, 0 0 5px var(--neon-magenta); }
-
-.speedo-sub-stats {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 10px;
-}
-
-.fuel-box, .rpm-box {
+.speedo-bottom-stats {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
+    justify-content: space-between;
+    gap: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 8px;
 }
 
-.sub-track {
+.fuel-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     flex-grow: 1;
-    height: 6px;
-    background: rgba(0, 0, 0, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 2px;
+}
+
+.mini-track {
+    flex-grow: 1;
+    height: 5px;
+    background: var(--bg-track);
+    border-radius: 4px;
     overflow: hidden;
 }
 
-.sub-fill {
+.mini-fill {
     height: 100%;
+    background: var(--hud-yellow);
+    box-shadow: 0 0 6px var(--hud-yellow);
+    border-radius: 4px;
     transition: width 0.2s ease;
 }
 
-.fuel-fill { background: var(--neon-amber); box-shadow: var(--glow-amber); }
-.rpm-fill { background: var(--neon-magenta); box-shadow: var(--glow-magenta); }
+.mini-val {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.7);
+}
 
-.speedo-indicators {
+.speedo-badges {
     display: flex;
-    justify-content: space-between;
-    margin-top: 6px;
-    padding-top: 6px;
-    border-top: 1px dashed rgba(255, 255, 255, 0.15);
+    gap: 6px;
 }
 
 .ind-badge {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
-    gap: 4px;
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
+    justify-content: center;
+    font-size: 0.72rem;
     color: rgba(255, 255, 255, 0.3);
-    padding: 3px 6px;
-    border-radius: 3px;
-    border: 1px solid transparent;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 .ind-badge.active {
-    color: var(--neon-cyan);
-    border-color: rgba(0, 243, 255, 0.4);
-    background: rgba(0, 243, 255, 0.1);
-    box-shadow: var(--glow-cyan);
+    color: var(--hud-cyan);
+    border-color: rgba(0, 225, 255, 0.4);
+    background: rgba(0, 225, 255, 0.12);
 }
 
 #ind-engine.active {
-    color: var(--neon-red);
-    border-color: rgba(255, 0, 51, 0.5);
-    background: rgba(255, 0, 51, 0.15);
-    box-shadow: 0 0 10px rgba(255, 0, 51, 0.6);
-    animation: engineFlash 0.8s infinite alternate;
-}
-
-@keyframes engineFlash {
-    0% { opacity: 0.4; }
-    100% { opacity: 1; }
+    color: var(--hud-red);
+    border-color: rgba(239, 68, 68, 0.5);
+    background: rgba(239, 68, 68, 0.15);
 }
 
 /* ==========================================================================
@@ -813,11 +542,11 @@ body.edit-mode .speedo-container {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 440px;
-    background: rgba(8, 14, 28, 0.96);
-    border: 2px solid var(--neon-cyan);
-    border-radius: 10px;
-    box-shadow: 0 0 25px rgba(0, 243, 255, 0.5), inset 0 0 20px rgba(0, 243, 255, 0.1);
+    width: 420px;
+    background: rgba(12, 16, 26, 0.96);
+    border: 1px solid var(--hud-cyan);
+    border-radius: 12px;
+    box-shadow: 0 0 30px rgba(0, 225, 255, 0.3);
     z-index: 2000;
     padding: 18px;
     display: flex;
@@ -833,14 +562,14 @@ body.edit-mode .speedo-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(0, 243, 255, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     padding-bottom: 10px;
 }
 
 .settings-header h3 {
     font-family: var(--font-heading);
-    font-size: 0.95rem;
-    letter-spacing: 1.5px;
+    font-size: 0.92rem;
+    letter-spacing: 1px;
     color: #ffffff;
 }
 
@@ -852,18 +581,17 @@ body.edit-mode .speedo-container {
     cursor: pointer;
 }
 
-.settings-close-btn:hover { color: var(--neon-magenta); }
+.settings-close-btn:hover { color: var(--hud-pink); }
 
 .settings-notice {
-    background: rgba(255, 170, 0, 0.15);
-    border: 1px solid var(--neon-amber);
+    background: rgba(255, 183, 0, 0.15);
+    border: 1px solid var(--hud-yellow);
     color: #ffffff;
     font-family: var(--font-mono);
     font-size: 0.75rem;
     padding: 8px 12px;
     border-radius: 6px;
     text-align: center;
-    box-shadow: 0 0 10px rgba(255, 170, 0, 0.3);
 }
 
 .settings-group {
@@ -894,46 +622,44 @@ body.edit-mode .speedo-container {
    ========================================================================== */
 .sim-dock {
     position: fixed;
-    top: 12px;
-    right: 18px;
+    top: 16px;
+    right: 20px;
     z-index: 1000;
 }
 
 .dock-toggle-btn {
-    background: var(--bg-panel);
-    border: 1px solid var(--neon-cyan);
-    color: var(--neon-cyan);
+    background: var(--bg-dark-card);
+    border: 1px solid var(--hud-cyan);
+    color: var(--hud-cyan);
     font-family: var(--font-heading);
     font-size: 0.75rem;
-    padding: 6px 12px;
-    border-radius: 6px;
+    padding: 8px 14px;
+    border-radius: 8px;
     cursor: pointer;
-    box-shadow: var(--glow-cyan);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     transition: all 0.2s ease;
 }
 
 .dock-toggle-btn:hover {
-    background: var(--neon-cyan);
+    background: var(--hud-cyan);
     color: #000000;
-    box-shadow: 0 0 20px var(--neon-cyan);
 }
 
 .dock-panel {
     position: absolute;
-    top: 40px;
+    top: 44px;
     right: 0;
-    width: 380px;
+    width: 360px;
     max-height: 85vh;
-    background: rgba(8, 12, 22, 0.95);
-    border: 1px solid var(--neon-cyan);
-    border-radius: 8px;
-    box-shadow: var(--glow-cyan);
+    background: rgba(12, 16, 26, 0.96);
+    border: 1px solid var(--hud-cyan);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     overflow-y: auto;
     padding: 16px;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .dock-panel.hidden {
@@ -944,7 +670,7 @@ body.edit-mode .speedo-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(0, 243, 255, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     padding-bottom: 8px;
 }
 
@@ -963,7 +689,7 @@ body.edit-mode .speedo-container {
     cursor: pointer;
 }
 
-.dock-close-btn:hover { color: var(--neon-magenta); }
+.dock-close-btn:hover { color: var(--hud-pink); }
 
 .dock-content {
     display: flex;
@@ -984,7 +710,7 @@ body.edit-mode .speedo-container {
 .group-title {
     font-family: var(--font-mono);
     font-size: 0.7rem;
-    color: var(--neon-cyan);
+    color: var(--hud-cyan);
     letter-spacing: 1px;
     font-weight: bold;
 }
@@ -1000,7 +726,7 @@ body.edit-mode .speedo-container {
     font-weight: 700;
     font-size: 0.75rem;
     padding: 8px;
-    border-radius: 4px;
+    border-radius: 6px;
     border: 1px solid transparent;
     cursor: pointer;
     background: rgba(255, 255, 255, 0.08);
@@ -1017,14 +743,14 @@ body.edit-mode .speedo-container {
     filter: brightness(1.2);
 }
 
-.btn-cyan { border-color: var(--neon-cyan); color: var(--neon-cyan); }
-.btn-magenta { border-color: var(--neon-magenta); color: var(--neon-magenta); }
-.btn-amber { border-color: var(--neon-amber); color: var(--neon-amber); }
-.btn-lime { border-color: var(--neon-lime); color: var(--neon-lime); }
+.btn-cyan { border-color: var(--hud-cyan); color: var(--hud-cyan); }
+.btn-magenta { border-color: var(--hud-pink); color: var(--hud-pink); }
+.btn-amber { border-color: var(--hud-yellow); color: var(--hud-yellow); }
+.btn-lime { border-color: var(--hud-lime); color: var(--hud-lime); }
 
 .btn-toggle.active {
-    background: rgba(0, 243, 255, 0.2);
-    border-color: var(--neon-cyan);
+    background: rgba(0, 225, 255, 0.2);
+    border-color: var(--hud-cyan);
     color: #ffffff;
 }
 
@@ -1045,7 +771,7 @@ body.edit-mode .speedo-container {
 
 .slider-row input[type="range"] {
     flex-grow: 1;
-    accent-color: var(--neon-cyan);
+    accent-color: var(--hud-cyan);
     cursor: pointer;
 }
 
@@ -1053,47 +779,5 @@ body.edit-mode .speedo-container {
     width: 55px !important;
     text-align: right;
     font-weight: bold;
-    color: var(--neon-cyan);
-}
-
-/* COLOR PALETTE BUTTONS */
-.color-palette-selector {
-    display: flex;
-    gap: 10px;
-}
-
-.palette-btn {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-.palette-btn:hover, .palette-btn.active {
-    transform: scale(1.15);
-    border-color: #ffffff;
-    box-shadow: 0 0 10px #ffffff;
-}
-
-.p-cyber { background: linear-gradient(135deg, #00f3ff, #ff0055); }
-.p-matrix { background: linear-gradient(135deg, #00ff66, #004411); }
-.p-synthwave { background: linear-gradient(135deg, #ff7700, #ff00a0); }
-.p-gold { background: linear-gradient(135deg, #ffd700, #ff4500); }
-
-/* Responsive adjustments */
-@media (max-width: 900px) {
-    .hud-container {
-        padding: 10px;
-    }
-    .hud-bottom {
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-    }
-    .vitals-container, .speedo-container {
-        width: 100%;
-        max-width: 380px;
-    }
+    color: var(--hud-cyan);
 }
